@@ -1,0 +1,202 @@
+\documentclass[12pt,a4paper]{article}
+
+% Ngôn ngữ và font chữ
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+\usepackage[T5]{fontenc}
+
+% Lề trang
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{geometry}
+
+% Các gói hỗ trợ toán học và hình ảnh
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{cite}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{indentfirst}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{booktabs}
+
+% Cấu hình giãn dòng
+\onehalfspacing
+
+% Cấu hình tiêu đề
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+\title{\textbf{Nghiên cứu về Thuật toán Zero-DCE: Tăng cường Ảnh Thiếu sáng bằng Phương pháp Ước lượng Đường cong Không tham chiếu}}
+\author{Báo cáo Kỹ thuật \\ \small Lĩnh vực: Thị giác Máy tính và Xử lý Ảnh}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Tăng cường hình ảnh trong điều kiện thiếu sáng (Low-Light Image Enhancement - LLIE) là một thách thức quan trọng trong lĩnh vực thị giác máy tính. Các phương pháp học sâu truyền thống thường dựa trên việc huấn luyện có giám sát với các cặp hình ảnh thiếu sáng và ảnh chuẩn (ground-truth), điều này gây ra khó khăn lớn trong việc thu thập dữ liệu thực tế. Bài báo này trình bày chi tiết về Zero-DCE (Zero-Reference Deep Curve Estimation), một phương pháp tiếp cận đột phá không cần dữ liệu tham chiếu. Zero-DCE coi bài toán tăng cường ánh sáng là bài toán ước lượng các đường cong điều chỉnh ánh sáng đặc thù cho từng điểm ảnh thông qua một mạng thần kinh tích chập nhẹ (DCE-Net). Chúng tôi phân tích sâu về cơ sở lý thuyết của các đường cong tăng cường (LE-curve), kiến trúc mạng, và bộ bốn hàm mất mát không tham chiếu độc đáo. Kết quả thực nghiệm cho thấy Zero-DCE đạt được hiệu suất vượt trội về cả chất lượng ảnh lẫn tốc độ xử lý, mở ra khả năng ứng dụng thời gian thực trên các thiết bị di động.
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Giới thiệu}
+
+\subsection{Tầm quan trọng của Tăng cường Ảnh Thiếu sáng}
+Trong kỷ nguyên kỹ thuật số, hình ảnh và video đóng vai trò quan trọng trong giao tiếp, giám sát, và các hệ thống tự hành. Tuy nhiên, việc thu nhận hình ảnh trong điều kiện ánh sáng yếu (như ban đêm, trong nhà, hoặc trong môi trường có độ tương phản cao) thường dẫn đến chất lượng ảnh kém. Các vấn đề phổ biến bao gồm:
+\begin{itemize}
+    \item \textbf{Độ tương phản thấp}: Các chi tiết bị chìm trong bóng tối, khó phân biệt.
+    \item \textbf{Nhiễu hạt (Noise)}: Do cảm biến phải đẩy ISO lên cao, tạo ra các hạt màu không mong muốn.
+    \item \textbf{Sai lệch màu sắc}: Ánh sáng yếu làm cảm biến không ghi nhận chính xác phổ màu.
+\end{itemize}
+Việc giải quyết những vấn đề này không chỉ cải thiện thẩm mỹ mà còn là tiền đề cho các hệ thống AI khác hoạt động ổn định hơn.
+
+\subsection{Hạn chế của các Phương pháp Truyền thống}
+Trước khi học sâu bùng nổ, các kỹ thuật như \textit{Histogram Equalization} (HE) và \textit{Gamma Correction} là những lựa chọn hàng đầu. Mặc dù đơn giản, chúng thường gây ra hiện tượng tăng cường quá mức (over-enhancement), làm mất chi tiết ở những vùng vốn đã đủ sáng. Lý thuyết Retinex cũng được áp dụng rộng rãi nhưng đòi hỏi các giả định phức tạp về sự phân tách ánh sáng và phản xạ, vốn không phải lúc nào cũng đúng trong thực tế.
+
+\subsection{Thách thức của Học sâu có Giám sát}
+Các mô hình như RetinexNet hay LLNet yêu cầu tập dữ liệu huấn luyện gồm các cặp ảnh (tối - sáng). Việc tạo ra tập dữ liệu này đối mặt với hai rào cản:
+\begin{enumerate}
+    \item \textbf{Sự sai lệch pixel}: Việc giữ camera đứng yên tuyệt đối để chụp hai bức ảnh ở hai mức phơi sáng khác nhau là rất khó.
+    \item \textbf{Tính chủ quan của ảnh chuẩn}: Một bức ảnh "sáng đẹp" thường mang tính cảm tính, dẫn đến việc mô hình có thể bị thiên kiến theo tập dữ liệu cụ thể.
+\end{enumerate}
+
+Zero-DCE ra đời để phá bỏ những rào cản này bằng cách tự học từ chính các bức ảnh thiếu sáng mà không cần bất kỳ sự hướng dẫn nào từ ảnh chuẩn.
+
+\section{Các công trình liên quan}
+
+\subsection{Phương pháp dựa trên mô hình toán học}
+Nhiều nghiên cứu tập trung vào việc ước lượng bản đồ chiếu sáng (illumination map). LIME (Low-light Image Enhancement) là một ví dụ điển hình, nơi tác giả tối ưu hóa một bản đồ ánh sáng dựa trên cấu trúc của ảnh đầu vào. Tuy nhiên, các phương pháp này thường dựa trên các ràng buộc thủ công (hand-crafted priors) nên thiếu tính linh hoạt khi gặp các bối cảnh ánh sáng phức tạp.
+
+\subsection{Học sâu không tham chiếu và GAN}
+Để loại bỏ nhu cầu về ảnh cặp, một số nghiên cứu sử dụng GAN (Generative Adversarial Networks). Ví dụ, EnGAN sử dụng bộ phân biệt (discriminator) để ép ảnh đầu ra trông giống như các bức ảnh có ánh sáng tốt. Tuy nhiên, GAN rất khó huấn luyện, tiêu tốn tài nguyên và đôi khi tạo ra các chi tiết giả (artifacts). Zero-DCE đi theo một hướng khác: ổn định hơn, nhẹ hơn và dễ giải thích hơn.
+
+\section{Kiến trúc và Lý thuyết của Zero-DCE}
+
+\subsection{Đường cong tăng cường ánh sáng (LE-curve)}
+Khác với các mạng thần kinh thông thường cố gắng dự đoán trực tiếp giá trị RGB của điểm ảnh, Zero-DCE dự đoán một đường cong. Đường cong này được lấy cảm hứng từ tính năng "Curves" trong các phần mềm đồ họa.
+
+\subsubsection{Định nghĩa toán học}
+Hàm tăng cường cơ bản được định nghĩa là:
+\begin{equation}
+    LE(I(x); \alpha) = I(x) + \alpha I(x)(1 - I(x))
+\end{equation}
+Trong đó $I(x)$ là ảnh đầu vào chuẩn hóa về $[0, 1]$. Tham số $\alpha$ là trọng tâm của mô hình. Khi $\alpha$ dương, giá trị điểm ảnh sẽ được đẩy lên cao hơn. Đặc biệt, tại các giá trị $I(x)$ gần 0 hoặc 1, thành phần $\alpha I(x)(1 - I(x))$ sẽ nhỏ, giúp bảo toàn các vùng đen tuyệt đối và trắng tuyệt đối.
+
+\subsubsection{Cấu trúc bậc cao thông qua lặp lại}
+Để mô hình hóa các biến đổi phức tạp, Zero-DCE áp dụng đường cong này lặp lại $n$ lần:
+\begin{equation}
+    I_n(x) = I_{n-1}(x) + \alpha_n I_{n-1}(x)(1 - I_{n-1}(x))
+\end{equation}
+Mỗi bước lặp $n$ sử dụng một bản đồ tham số $\alpha_n$ khác nhau. Với $n=8$, hàm cuối cùng có bậc là $2^8 = 256$, đủ sức mạnh để khôi phục ánh sáng ngay cả trong những điều kiện khắc nghiệt nhất.
+
+\subsection{Mạng thần kinh DCE-Net}
+DCE-Net là một mạng tích chập hoàn toàn (FCN) với nhiệm vụ duy nhất: từ ảnh đầu vào $I$, tạo ra các bản đồ tham số $\mathcal{A} = \{\alpha_1, \alpha_2, ..., \alpha_n\}$.
+
+\subsubsection{Chi tiết kiến trúc}
+Mạng gồm 7 lớp tích chập đối xứng:
+\begin{itemize}
+    \item \textbf{Lớp 1-6}: Mỗi lớp sử dụng 32 filter $3 \times 3$ với activation ReLU.
+    \item \textbf{Lớp 7}: Lớp cuối cùng sử dụng hàm Tanh để đảm bảo $\alpha \in [-1, 1]$.
+    \item \textbf{Skip Connections}: Nhằm giữ lại thông tin không gian, đầu ra của các lớp được nối lại với nhau theo cặp (1-6, 2-5, 3-4).
+\end{itemize}
+Kiến trúc này đảm bảo rằng mỗi pixel trong bản đồ $\alpha$ đều được hưởng lợi từ thông tin ngữ cảnh xung quanh nó, dẫn đến sự điều chỉnh ánh sáng nhất quán.
+
+\section{Phân tích Sâu về các Hàm Mất mát}
+
+Đây là phần quan trọng nhất giúp Zero-DCE có thể huấn luyện không tham chiếu. Tổng hàm mất mát là sự kết hợp của 4 thành phần:
+\begin{equation}
+    L_{total} = w_{spa}L_{spa} + w_{exp}L_{exp} + w_{col}L_{col} + w_{tv}L_{tv}
+\end{equation}
+
+\subsection{Hàm mất mát nhất quán không gian ($L_{spa}$)}
+Một bức ảnh tăng cường tốt phải giữ được cấu trúc biên của vật thể. $L_{spa}$ đo lường sự chênh lệch giữa các điểm ảnh lân cận trong ảnh đầu vào và ảnh đầu ra:
+\begin{equation}
+    L_{spa} = \frac{1}{K} \sum_{i=1}^{K} \sum_{j \in \Omega(i)} (|Y_i - Y_j| - |I_i - I_j|)^2
+\end{equation}
+Nếu điểm ảnh $i$ sáng hơn điểm ảnh $j$ trong ảnh gốc, nó cũng phải sáng hơn trong ảnh kết quả với một tỷ lệ tương ứng.
+
+\subsection{Hàm mất mát kiểm soát phơi sáng ($L_{exp}$)}
+Để tránh ảnh bị cháy sáng hoặc vẫn còn quá tối, $L_{exp}$ ép độ sáng trung bình của các vùng cục bộ về một giá trị mục tiêu $E \approx 0.6$.
+\begin{equation}
+    L_{exp} = \frac{1}{M} \sum_{k=1}^{M} |\bar{Y}_k - E|
+\end{equation}
+Việc tính toán trên các cửa sổ cục bộ ($16 \times 16$) thay vì toàn bộ ảnh giúp mô hình xử lý tốt các tình huống ánh sáng không đồng đều (Mixed lighting).
+
+\subsection{Hàm mất mát hằng số màu sắc ($L_{col}$)}
+Dựa trên giả định Gray-world, $L_{col}$ ép các kênh màu R, G, B có cường độ trung bình tương đương nhau, giúp loại bỏ các hiện tượng ám màu:
+\begin{equation}
+    L_{col} = \sum_{\forall (p, q) \in \{(R,G), (R,B), (G,B)\}} (\mu_p - \mu_q)^2
+\end{equation}
+
+\subsection{Hàm mất mát độ mượt ánh sáng ($L_{tv}$)}
+Để đảm bảo bản đồ tham số $\alpha$ không bị nhiễu và thay đổi quá đột ngột (gây ra hiện tượng nhiễu khối), hàm Total Variation được áp dụng:
+\begin{equation}
+    L_{tv} = \frac{1}{N} \sum_{n=1}^{N} \sum_{c \in \{R,G,B\}} (\|\nabla_x \alpha_{n,c}\|_2^2 + \|\nabla_y \alpha_{n,c}\|_2^2)
+\end{equation}
+
+\section{Kết quả Thực nghiệm và Thảo luận}
+
+\subsection{Đánh giá Định lượng}
+Trên tập dữ liệu LOL, Zero-DCE đạt kết quả ấn tượng dù không được huấn luyện trên đó. So với các phương pháp có giám sát, mặc dù chỉ số PSNR có thể thấp hơn một chút (do không tối ưu trực tiếp theo pixel), nhưng các chỉ số về chất lượng tự nhiên (NIQE, PI) lại vượt trội.
+
+\begin{table}[H]
+\centering
+\caption{So sánh tốc độ xử lý trên GPU NVIDIA RTX 2080Ti}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Phương pháp} & \textbf{Độ phân giải} & \textbf{Thời gian (s)} & \textbf{FPS} \\ \midrule
+RetinexNet & $640 \times 480$ & 0.12 & 8.3 \\
+LIME & $640 \times 480$ & 0.05 & 20.0 \\
+\textbf{Zero-DCE} & $\mathbf{640 \times 480}$ & \textbf{0.002} & \textbf{500.0} \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Tốc độ xử lý và Khả năng ứng dụng}
+Với tốc độ 500 FPS cho ảnh SD, Zero-DCE là ứng cử viên số một cho việc tăng cường video trực tiếp trên smartphone. Phiên bản Zero-DCE++ thậm chí còn nhẹ hơn, cho phép chạy trên các CPU yếu mà không cần GPU chuyên dụng.
+
+\subsection{Phân tích Đạo hàm và Sự Hội tụ}
+Đạo hàm của hàm LE-curve theo $\alpha$ là:
+\begin{equation}
+    \frac{\partial LE(I; \alpha)}{\partial \alpha} = I(1 - I)
+\end{equation}
+Biểu thức này luôn dương trong khoảng $(0, 1)$, điều này đảm bảo rằng quá trình gradient descent sẽ luôn tìm được hướng tối ưu để điều chỉnh độ sáng mà không gặp phải các điểm cực trị cục bộ phức tạp.
+
+\section{Phân tích Chuyên sâu và Các Góc nhìn Mới}
+
+\subsection{Tại sao 7 lớp tích chập?}
+Tác giả đã thử nghiệm với nhiều độ sâu mạng khác nhau. Với ít hơn 5 lớp, mạng không đủ khả năng học các đặc trưng không gian phức tạp. Với nhiều hơn 10 lớp, hiệu suất cải thiện không đáng kể trong khi tốc độ giảm đi. 7 lớp là "điểm ngọt" (sweet spot) cân bằng giữa độ chính xác và tốc độ.
+
+\subsection{Vấn đề về Nhiễu và Khử nhiễu}
+Một điểm yếu khách quan của Zero-DCE là nó không có cơ chế khử nhiễu. Trong ảnh thiếu sáng, nhiễu thường tập trung ở các vùng tối. Khi Zero-DCE kéo sáng các vùng này, nhiễu cũng bị phóng đại. Trong các phiên bản mở rộng (như Zero-DCE++), việc tích hợp thêm một lớp khử nhiễu nhẹ đã được xem xét để cải thiện chất lượng cuối cùng.
+
+\section{Tác động Xã hội và Đạo đức}
+Công nghệ LLIE như Zero-DCE có tác động lớn đến quyền riêng tư. Việc có thể nhìn xuyên thấu bóng tối một cách dễ dàng đặt ra những câu hỏi về việc sử dụng camera giám sát trong đời sống. Tuy nhiên, ở mặt tích cực, nó hỗ trợ đắc lực cho cứu hộ ban đêm, an toàn giao thông và nâng cao chất lượng lưu trữ hình ảnh lịch sử.
+
+\section{Kết luận}
+Zero-DCE đại diện cho một bước tiến quan trọng trong xử lý ảnh bằng học sâu. Bằng cách kết hợp tri thức toán học về đường cong với khả năng học đặc trưng của CNN, nó đã tạo ra một giải pháp vừa mạnh mẽ, vừa hiệu quả, vừa linh hoạt. Việc không phụ thuộc vào dữ liệu tham chiếu là chìa khóa để mô hình có thể thích nghi với vô vàn điều kiện ánh sáng thực tế trong tương lai.
+
+\newpage
+\begin{thebibliography}{9}
+\bibitem{zero-dce}
+Guo, C., Li, C., Guo, J., Loy, C. C., Hou, J., Kwong, S., \& Cong, R. (2020). Zero-reference deep curve estimation for low-light image enhancement. In \textit{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition} (pp. 1780-1789).
+
+\bibitem{zero-dce-plus}
+Li, C., Guo, C., \& Loy, C. C. (2021). Learning to enhance low-light images via zero-reference deep curve estimation. \textit{IEEE Transactions on Pattern Analysis and Machine Intelligence}.
+
+\bibitem{retinexnet}
+Wei, C., Wang, W., Yang, W., \& Liu, Jiaying. (2018). Deep Retinex Decomposition for Low-Light Enhancement. In \textit{BMVC}.
+
+\bibitem{lime}
+Guo, X., Li, Y., \& Ling, H. (2016). LIME: Low-light image enhancement via illumination map estimation. \textit{IEEE Transactions on Image Processing}, 26(2), 982-993.
+
+\bibitem{sice}
+Cai, J., Gu, S., \& Zhang, L. (2018). Learning a deep single image contrast enhancer from multi-exposure images. \textit{IEEE Transactions on Image Processing}, 27(4), 2049-2062.
+\end{thebibliography}
+
+\end{document}
