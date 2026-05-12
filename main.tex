@@ -1,49 +1,39 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[10pt,twocolumn,a4paper]{article}
 
-% Ngôn ngữ và font chữ
+\usepackage[T5]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[vietnamese]{babel}
-\usepackage[T5]{fontenc}
+\usepackage{times}
 
 % Lề trang
-\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{geometry}
+\usepackage[top=2cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
 
 % Các gói hỗ trợ toán học và hình ảnh
 \usepackage{amsmath, amssymb, amsfonts}
 \usepackage{graphicx}
-\usepackage{hyperref}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \usepackage{cite}
-\usepackage{setspace}
-\usepackage{titlesec}
 \usepackage{indentfirst}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{booktabs}
 
-% Cấu hình giãn dòng
-\onehalfspacing
+% Line spacing - Default single spacing for paper style
 
-% Cấu hình tiêu đề
-\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
-\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
-
-\title{\textbf{Nghiên cứu về Thuật toán Zero-DCE: Tăng cường Ảnh Thiếu sáng bằng Phương pháp Ước lượng Đường cong Không tham chiếu}}
-\author{Báo cáo Kỹ thuật \\ \small Lĩnh vực: Thị giác Máy tính và Xử lý Ảnh}
-\date{\today}
+\title{\huge \textbf{Nghiên cứu về Thuật toán Zero-DCE: Tăng cường Ảnh Thiếu sáng bằng Phương pháp Ước lượng Đường cong Không tham chiếu}}
+\author{\textbf{Nhóm nghiên cứu: [Tên thành viên]} \\ \small Lĩnh vực: Thị giác Máy tính và Xử lý Ảnh \\ \small Trường Đại học Bách Khoa}
+\date{} % Remove date as common in papers
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-Tăng cường hình ảnh trong điều kiện thiếu sáng (Low-Light Image Enhancement - LLIE) là một thách thức quan trọng trong lĩnh vực thị giác máy tính. Các phương pháp học sâu truyền thống thường dựa trên việc huấn luyện có giám sát với các cặp hình ảnh thiếu sáng và ảnh chuẩn (ground-truth), điều này gây ra khó khăn lớn trong việc thu thập dữ liệu thực tế. Bài báo này trình bày chi tiết về Zero-DCE (Zero-Reference Deep Curve Estimation), một phương pháp tiếp cận đột phá không cần dữ liệu tham chiếu. Zero-DCE coi bài toán tăng cường ánh sáng là bài toán ước lượng các đường cong điều chỉnh ánh sáng đặc thù cho từng điểm ảnh thông qua một mạng thần kinh tích chập nhẹ (DCE-Net). Chúng tôi phân tích sâu về cơ sở lý thuyết của các đường cong tăng cường (LE-curve), kiến trúc mạng, và bộ bốn hàm mất mát không tham chiếu độc đáo. Kết quả thực nghiệm cho thấy Zero-DCE đạt được hiệu suất vượt trội về cả chất lượng ảnh lẫn tốc độ xử lý, mở ra khả năng ứng dụng thời gian thực trên các thiết bị di động.
+\noindent Tăng cường hình ảnh trong điều kiện thiếu sáng (Low-Light Image Enhancement - LLIE) là một thách thức quan trọng trong lĩnh vực thị giác máy tính. Các phương pháp học sâu truyền thống thường dựa trên việc huấn luyện có giám sát với các cặp hình ảnh thiếu sáng và ảnh chuẩn (ground-truth), điều này gây ra khó khăn lớn trong việc thu thập dữ liệu thực tế. Bài báo này trình bày chi tiết về Zero-DCE (Zero-Reference Deep Curve Estimation), một phương pháp tiếp cận đột phá không cần dữ liệu tham chiếu. Zero-DCE coi bài toán tăng cường ánh sáng là bài toán ước lượng các đường cong điều chỉnh ánh sáng đặc thù cho từng điểm ảnh thông qua một mạng thần kinh tích chập nhẹ (DCE-Net). Chúng tôi phân tích sâu về cơ sở lý thuyết của các đường cong tăng cường (LE-curve), kiến trúc mạng, và bộ bốn hàm mất mát không tham chiếu độc đáo. Kết quả thực nghiệm cho thấy Zero-DCE đạt được hiệu suất vượt trội về cả chất lượng ảnh lẫn tốc độ xử lý, mở ra khả năng ứng dụng thời gian thực trên các thiết bị di động.
 \end{abstract}
 
-\newpage
-\tableofcontents
-\newpage
+% Paper-style header (No TOC)
 
 \section{Giới thiệu}
 
@@ -175,13 +165,11 @@ Tác giả đã thử nghiệm với nhiều độ sâu mạng khác nhau. Với
 \subsection{Vấn đề về Nhiễu và Khử nhiễu}
 Một điểm yếu khách quan của Zero-DCE là nó không có cơ chế khử nhiễu. Trong ảnh thiếu sáng, nhiễu thường tập trung ở các vùng tối. Khi Zero-DCE kéo sáng các vùng này, nhiễu cũng bị phóng đại. Trong các phiên bản mở rộng (như Zero-DCE++), việc tích hợp thêm một lớp khử nhiễu nhẹ đã được xem xét để cải thiện chất lượng cuối cùng.
 
-\section{Tác động Xã hội và Đạo đức}
-Công nghệ LLIE như Zero-DCE có tác động lớn đến quyền riêng tư. Việc có thể nhìn xuyên thấu bóng tối một cách dễ dàng đặt ra những câu hỏi về việc sử dụng camera giám sát trong đời sống. Tuy nhiên, ở mặt tích cực, nó hỗ trợ đắc lực cho cứu hộ ban đêm, an toàn giao thông và nâng cao chất lượng lưu trữ hình ảnh lịch sử.
 
 \section{Kết luận}
 Zero-DCE đại diện cho một bước tiến quan trọng trong xử lý ảnh bằng học sâu. Bằng cách kết hợp tri thức toán học về đường cong với khả năng học đặc trưng của CNN, nó đã tạo ra một giải pháp vừa mạnh mẽ, vừa hiệu quả, vừa linh hoạt. Việc không phụ thuộc vào dữ liệu tham chiếu là chìa khóa để mô hình có thể thích nghi với vô vàn điều kiện ánh sáng thực tế trong tương lai.
 
-\newpage
+
 \begin{thebibliography}{9}
 \bibitem{zero-dce}
 Guo, C., Li, C., Guo, J., Loy, C. C., Hou, J., Kwong, S., \& Cong, R. (2020). Zero-reference deep curve estimation for low-light image enhancement. In \textit{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition} (pp. 1780-1789).

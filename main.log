@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.5)  5 MAY 2026 20:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.5)  12 MAY 2026 20:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -8,8 +8,8 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
-(/usr/local/texlive/2026basic/texmf-dist/tex/latex/base/size12.clo
-File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count275
 \c@section=\count276
@@ -23,57 +23,9 @@ File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 \belowcaptionskip=\skip50
 \bibindent=\dimen148
 )
-(/usr/local/texlive/2026basic/texmf-dist/tex/latex/base/inputenc.sty
-Package: inputenc 2024/02/08 v1.3d Input encoding file
-\inpenc@prehook=\toks17
-\inpenc@posthook=\toks18
-)
-(/usr/local/texlive/2026basic/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2026/02/14 v26.3 The multilingual framework for LuaLaTeX, pdfLaT
-eX and XeLaTeX
-\babel@savecnt=\count283
-LaTeX Encoding Info:    Redeclaring text command \ij (encoding OT1) on input li
-ne 2078.
-LaTeX Encoding Info:    Redeclaring text command \IJ (encoding OT1) on input li
-ne 2080.
-LaTeX Encoding Info:    Redeclaring text command \ij (encoding T1) on input lin
-e 2082.
-LaTeX Encoding Info:    Redeclaring text command \IJ (encoding T1) on input lin
-e 2083.
-LaTeX Encoding Info:    Ignoring declaration for text command \ij (encoding ?) 
-on input line 2084.
-LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?) 
-on input line 2086.
-LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) 
-on input line 2111.
-\U@D=\dimen149
-\l@unhyphenated=\language23
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
 
-(/usr/local/texlive/2026basic/texmf-dist/tex/generic/babel/txtbabel.def)
-\bbl@readstream=\read2
-\bbl@dirlevel=\count284
-
-(/usr/local/texlive/2026basic/texmf-dist/tex/generic/babel/locale/vi/babel-viet
-namese.tex)
-Package babel Info: Importing font and identification data for vietnamese
-(babel)             from babel-vi.ini. Reported on input line 4330.
-
-(/usr/local/texlive/2026basic/texmf-dist/tex/generic/babel-vietnamese/vietnames
-e.ldf
-Language: vietnamese 
-
-
-Package babel Warning: No hyphenation patterns were preloaded for
-(babel)                the language 'Vietnamese' into the format.
-(babel)                Please, configure your TeX system to add them and
-(babel)                rebuild the format. Now I will use the patterns
-(babel)                preloaded for \language=0 instead on input line 36.
-
-Package babel Info: Hyphen rules for 'vietnamese' set to \l@english
-(babel)             (\language0). Reported on input line 37.
-Package babel Info: Hyphen rules for 'vietnam' set to \l@english
-(babel)             (\language0). Reported on input line 38.
-Loading definitions for the Vietnamese font encoding
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/vntex/t5enc.def
 File: t5enc.def 2006/11/21 v1.4 Vietnamese T5 encoding
 Now handling font encoding T5 ...
@@ -233,16 +185,198 @@ File: t5enc.dfu 2006/08/19 v1.1 UTF8 support for Vietnamese
    defining Unicode char U+203A (decimal 8250)
    defining Unicode char U+2423 (decimal 9251)
 ))
-Package babel Info: Making " an active character on input line 147.
-))
-(/usr/local/texlive/2026basic/texmf-dist/tex/latex/base/fontenc.sty
-Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T5+cmr on input line 11
 6.
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/vntex/t5cmr.fd
 File: t5cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 ))
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2024/02/08 v1.3d Input encoding file
+\inpenc@prehook=\toks17
+\inpenc@posthook=\toks18
+)
+(/usr/local/texlive/2026basic/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2026/02/14 v26.3 The multilingual framework for LuaLaTeX, pdfLaT
+eX and XeLaTeX
+\babel@savecnt=\count283
+LaTeX Encoding Info:    Redeclaring text command \ij (encoding OT1) on input li
+ne 2078.
+LaTeX Encoding Info:    Redeclaring text command \IJ (encoding OT1) on input li
+ne 2080.
+LaTeX Encoding Info:    Redeclaring text command \ij (encoding T1) on input lin
+e 2082.
+LaTeX Encoding Info:    Redeclaring text command \IJ (encoding T1) on input lin
+e 2083.
+LaTeX Encoding Info:    Ignoring declaration for text command \ij (encoding ?) 
+on input line 2084.
+LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?) 
+on input line 2086.
+LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) 
+on input line 2111.
+\U@D=\dimen149
+\l@unhyphenated=\language23
+
+(/usr/local/texlive/2026basic/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@readstream=\read2
+\bbl@dirlevel=\count284
+
+(/usr/local/texlive/2026basic/texmf-dist/tex/generic/babel/locale/vi/babel-viet
+namese.tex)
+Package babel Info: Importing font and identification data for vietnamese
+(babel)             from babel-vi.ini. Reported on input line 4330.
+
+(/usr/local/texlive/2026basic/texmf-dist/tex/generic/babel-vietnamese/vietnames
+e.ldf
+Language: vietnamese 
+
+
+Package babel Warning: No hyphenation patterns were preloaded for
+(babel)                the language 'Vietnamese' into the format.
+(babel)                Please, configure your TeX system to add them and
+(babel)                rebuild the format. Now I will use the patterns
+(babel)                preloaded for \language=0 instead on input line 36.
+
+Package babel Info: Hyphen rules for 'vietnamese' set to \l@english
+(babel)             (\language0). Reported on input line 37.
+Package babel Info: Hyphen rules for 'vietnam' set to \l@english
+(babel)             (\language0). Reported on input line 38.
+Loading definitions for the Vietnamese font encoding
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/vntex/t5enc.def
+File: t5enc.def 2006/11/21 v1.4 Vietnamese T5 encoding
+LaTeX Font Info:    Redeclaring font encoding T5 on input line 75.
+LaTeX Encoding Info:    Redeclaring text command \` (encoding T5) on input line
+ 79.
+LaTeX Encoding Info:    Redeclaring text command \' (encoding T5) on input line
+ 80.
+LaTeX Encoding Info:    Redeclaring text command \^ (encoding T5) on input line
+ 81.
+LaTeX Encoding Info:    Redeclaring text command \~ (encoding T5) on input line
+ 82.
+LaTeX Encoding Info:    Redeclaring text command \" (encoding T5) on input line
+ 83.
+LaTeX Encoding Info:    Redeclaring text command \r (encoding T5) on input line
+ 84.
+LaTeX Encoding Info:    Redeclaring text command \v (encoding T5) on input line
+ 85.
+LaTeX Encoding Info:    Redeclaring text command \u (encoding T5) on input line
+ 86.
+LaTeX Encoding Info:    Redeclaring text command \= (encoding T5) on input line
+ 87.
+LaTeX Encoding Info:    Redeclaring text command \. (encoding T5) on input line
+ 88.
+LaTeX Encoding Info:    Redeclaring text command \b (encoding T5) on input line
+ 90.
+LaTeX Encoding Info:    Redeclaring text command \c (encoding T5) on input line
+ 94.
+LaTeX Encoding Info:    Redeclaring text command \d (encoding T5) on input line
+ 98.
+LaTeX Encoding Info:    Redeclaring text command \h (encoding T5) on input line
+ 103.
+LaTeX Encoding Info:    Redeclaring text symbol \quotesinglbase (encoding T5) o
+n input line 105.
+LaTeX Encoding Info:    Redeclaring text symbol \guilsinglleft (encoding T5) on
+ input line 106.
+LaTeX Encoding Info:    Redeclaring text symbol \guilsinglright (encoding T5) o
+n input line 107.
+LaTeX Encoding Info:    Redeclaring text symbol \textquotedblleft (encoding T5)
+ on input line 108.
+LaTeX Encoding Info:    Redeclaring text symbol \textquotedblright (encoding T5
+) on input line 109.
+LaTeX Encoding Info:    Redeclaring text symbol \quotedblbase (encoding T5) on 
+input line 110.
+LaTeX Encoding Info:    Redeclaring text symbol \guillemotleft (encoding T5) on
+ input line 111.
+LaTeX Encoding Info:    Redeclaring text symbol \guillemotright (encoding T5) o
+n input line 112.
+LaTeX Encoding Info:    Redeclaring text symbol \textendash (encoding T5) on in
+put line 113.
+LaTeX Encoding Info:    Redeclaring text symbol \textemdash (encoding T5) on in
+put line 114.
+LaTeX Encoding Info:    Redeclaring text symbol \textcompwordmark (encoding T5)
+ on input line 115.
+LaTeX Encoding Info:    Redeclaring text command \textperthousand (encoding T5)
+ on input line 117.
+LaTeX Encoding Info:    Redeclaring text command \textpertenthousand (encoding 
+T5) on input line 118.
+LaTeX Encoding Info:    Redeclaring text symbol \i (encoding T5) on input line 
+119.
+LaTeX Encoding Info:    Redeclaring text symbol \textvisiblespace (encoding T5)
+ on input line 121.
+LaTeX Encoding Info:    Redeclaring text symbol \textquotedbl (encoding T5) on 
+input line 122.
+LaTeX Encoding Info:    Redeclaring text symbol \textdollar (encoding T5) on in
+put line 123.
+LaTeX Encoding Info:    Redeclaring text symbol \textquoteright (encoding T5) o
+n input line 124.
+LaTeX Encoding Info:    Redeclaring text symbol \textless (encoding T5) on inpu
+t line 125.
+LaTeX Encoding Info:    Redeclaring text symbol \textgreater (encoding T5) on i
+nput line 126.
+LaTeX Encoding Info:    Redeclaring text symbol \textbackslash (encoding T5) on
+ input line 127.
+LaTeX Encoding Info:    Redeclaring text symbol \textasciicircum (encoding T5) 
+on input line 128.
+LaTeX Encoding Info:    Redeclaring text symbol \textunderscore (encoding T5) o
+n input line 129.
+LaTeX Encoding Info:    Redeclaring text symbol \textquoteleft (encoding T5) on
+ input line 130.
+LaTeX Encoding Info:    Redeclaring text symbol \textbraceleft (encoding T5) on
+ input line 131.
+LaTeX Encoding Info:    Redeclaring text symbol \textbar (encoding T5) on input
+ line 132.
+LaTeX Encoding Info:    Redeclaring text symbol \textbraceright (encoding T5) o
+n input line 133.
+LaTeX Encoding Info:    Redeclaring text symbol \textasciitilde (encoding T5) o
+n input line 134.
+LaTeX Encoding Info:    Redeclaring text command \horn (encoding T5) on input l
+ine 137.
+LaTeX Encoding Info:    Redeclaring text symbol \DJ (encoding T5) on input line
+ 306.
+LaTeX Encoding Info:    Redeclaring text symbol \dj (encoding T5) on input line
+ 307.
+LaTeX Encoding Info:    Redeclaring text symbol \Acircumflex (encoding T5) on i
+nput line 312.
+LaTeX Encoding Info:    Redeclaring text symbol \Abreve (encoding T5) on input 
+line 319.
+LaTeX Encoding Info:    Redeclaring text symbol \Ecircumflex (encoding T5) on i
+nput line 326.
+LaTeX Encoding Info:    Redeclaring text symbol \Ocircumflex (encoding T5) on i
+nput line 333.
+LaTeX Encoding Info:    Redeclaring text symbol \Ohorn (encoding T5) on input l
+ine 340.
+LaTeX Encoding Info:    Redeclaring text symbol \Uhorn (encoding T5) on input l
+ine 347.
+LaTeX Encoding Info:    Redeclaring text symbol \acircumflex (encoding T5) on i
+nput line 354.
+LaTeX Encoding Info:    Redeclaring text symbol \abreve (encoding T5) on input 
+line 361.
+LaTeX Encoding Info:    Redeclaring text symbol \ecircumflex (encoding T5) on i
+nput line 368.
+LaTeX Encoding Info:    Redeclaring text symbol \ocircumflex (encoding T5) on i
+nput line 375.
+LaTeX Encoding Info:    Redeclaring text symbol \ohorn (encoding T5) on input l
+ine 382.
+LaTeX Encoding Info:    Redeclaring text symbol \uhorn (encoding T5) on input l
+ine 389.
+LaTeX Encoding Info:    Redeclaring text symbol \ACIRCUMFLEX (encoding T5) on i
+nput line 397.
+LaTeX Encoding Info:    Redeclaring text symbol \ABREVE (encoding T5) on input 
+line 404.
+LaTeX Encoding Info:    Redeclaring text symbol \ECIRCUMFLEX (encoding T5) on i
+nput line 411.
+LaTeX Encoding Info:    Redeclaring text symbol \OCIRCUMFLEX (encoding T5) on i
+nput line 418.
+LaTeX Encoding Info:    Redeclaring text symbol \OHORN (encoding T5) on input l
+ine 425.
+LaTeX Encoding Info:    Redeclaring text symbol \UHORN (encoding T5) on input l
+ine 432.
+)
+Package babel Info: Making " an active character on input line 147.
+))
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/times.sty
+Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
+)
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 
@@ -439,6 +573,7 @@ File: puenc.def 2026-01-29 v7.01p Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
+Package hyperref Info: Option `colorlinks' set `true' on input line 4072.
 Package hyperref Info: Hyper figures OFF on input line 4201.
 Package hyperref Info: Link nesting OFF on input line 4206.
 Package hyperref Info: Hyper index ON on input line 4209.
@@ -469,7 +604,7 @@ Package hyperref Info: Hyper figures OFF on input line 6084.
 Package hyperref Info: Link nesting OFF on input line 6089.
 Package hyperref Info: Hyper index ON on input line 6092.
 Package hyperref Info: backreferencing OFF on input line 6099.
-Package hyperref Info: Link coloring OFF on input line 6104.
+Package hyperref Info: Link coloring ON on input line 6102.
 Package hyperref Info: Link coloring with OCG OFF on input line 6109.
 Package hyperref Info: PDF/A mode OFF on input line 6114.
 \Hy@abspage=\count307
@@ -499,21 +634,6 @@ LaTeX Info: Redefining \cite on input line 302.
 LaTeX Info: Redefining \nocite on input line 332.
 Package: cite 2015/02/27  v 5.5
 )
-(/usr/local/texlive/2026basic/texmf-dist/tex/latex/setspace/setspace.sty
-Package: setspace 2022/12/04 v6.7b set line spacing
-)
-(/usr/local/texlive/2026basic/texmf-dist/tex/latex/titlesec/titlesec.sty
-Package: titlesec 2025/01/04 v2.17 Sectioning titles
-\ttl@box=\box55
-\beforetitleunit=\skip55
-\aftertitleunit=\skip56
-\ttl@plus=\dimen173
-\ttl@minus=\dimen174
-\ttl@toksa=\toks26
-\titlewidth=\dimen175
-\titlewidthlast=\dimen176
-\titlewidthfirst=\dimen177
-)
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/tools/indentfirst.sty
 Package: indentfirst 2023/07/02 v1.03 Indent first paragraph (DPC)
 )
@@ -522,14 +642,14 @@ Package: caption 2023/08/05 v3.6o Customizing captions (AR)
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen178
-\captionmargin=\dimen179
-\caption@leftmargin=\dimen180
-\caption@rightmargin=\dimen181
-\caption@width=\dimen182
-\caption@indent=\dimen183
-\caption@parindent=\dimen184
-\caption@hangindent=\dimen185
+\caption@tempdima=\dimen173
+\captionmargin=\dimen174
+\caption@leftmargin=\dimen175
+\caption@rightmargin=\dimen176
+\caption@width=\dimen177
+\caption@indent=\dimen178
+\caption@parindent=\dimen179
+\caption@hangindent=\dimen180
 Package caption Info: Standard document class detected.
 )
 \c@caption@flags=\count312
@@ -546,30 +666,36 @@ Package caption Info: New subtype `subtable' on input line 238.
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count316
-\float@exts=\toks27
-\float@box=\box56
-\@float@everytoks=\toks28
-\@floatcapt=\box57
+\float@exts=\toks26
+\float@box=\box55
+\@float@everytoks=\toks27
+\@floatcapt=\box56
 )
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen186
-\lightrulewidth=\dimen187
-\cmidrulewidth=\dimen188
-\belowrulesep=\dimen189
-\belowbottomsep=\dimen190
-\aboverulesep=\dimen191
-\abovetopsep=\dimen192
-\cmidrulesep=\dimen193
-\cmidrulekern=\dimen194
-\defaultaddspace=\dimen195
+\heavyrulewidth=\dimen181
+\lightrulewidth=\dimen182
+\cmidrulewidth=\dimen183
+\belowrulesep=\dimen184
+\belowbottomsep=\dimen185
+\aboverulesep=\dimen186
+\abovetopsep=\dimen187
+\cmidrulesep=\dimen188
+\cmidrulekern=\dimen189
+\defaultaddspace=\dimen190
 \@cmidla=\count317
 \@cmidlb=\count318
-\@aboverulesep=\dimen196
-\@belowrulesep=\dimen197
+\@aboverulesep=\dimen191
+\@belowrulesep=\dimen192
 \@thisruleclass=\count319
 \@lastruleclass=\count320
-\@thisrulewidth=\dimen198
+\@thisrulewidth=\dimen193
+)
+LaTeX Font Info:    Trying to load font information for T5+ptm on input line 28
+.
+
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/vntex/t5ptm.fd
+File: t5utm.fd 2005/08/24 Fontinst v1.929 font definitions for T5/ptm.
 )
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/l3backend/l3backend-pdftex.d
 ef
@@ -581,26 +707,26 @@ Package babel Info: 'vietnamese' activates 'vietnamese' shorthands.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for T5/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T5/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -610,27 +736,27 @@ LaTeX Font Info:    ... okay on input line 36.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(85.35826pt, 426.79135pt, 85.35826pt)
-* v-part:(T,H,B)=(71.13188pt, 702.78308pt, 71.13188pt)
+* h-part:(L,W,R)=(42.67912pt, 512.14963pt, 42.67912pt)
+* v-part:(T,H,B)=(56.9055pt, 731.23584pt, 56.9055pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
-* \textwidth=426.79135pt
-* \textheight=702.78308pt
-* \oddsidemargin=13.08827pt
-* \evensidemargin=13.08827pt
-* \topmargin=-38.1381pt
+* \textwidth=512.14963pt
+* \textheight=731.23584pt
+* \oddsidemargin=-29.59087pt
+* \evensidemargin=-29.59087pt
+* \topmargin=-52.36449pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=12.0pt
+* \topskip=10.0pt
 * \footskip=30.0pt
-* \marginparwidth=35.0pt
+* \marginparwidth=4.0pt
 * \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
-* \@twocolumnfalse
+* \@twocolumntrue
 * \@twosidefalse
 * \@mparswitchfalse
 * \@reversemarginfalse
@@ -639,16 +765,16 @@ LaTeX Font Info:    ... okay on input line 36.
 (/usr/local/texlive/2026basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count322
-\scratchdimen=\dimen199
-\scratchbox=\box58
+\scratchdimen=\dimen194
+\scratchbox=\box57
 \nofMPsegments=\count323
 \nofMParguments=\count324
-\everyMPshowfont=\toks29
+\everyMPshowfont=\toks28
 \MPscratchCnt=\count325
-\MPscratchDim=\dimen256
+\MPscratchDim=\dimen195
 \MPnumerator=\count326
 \makeMPintoPDFobject=\count327
-\everyMPtoPDFconversion=\toks30
+\everyMPtoPDFconversion=\toks29
 )
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.s
 ty
@@ -659,119 +785,139 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
-))
-Package hyperref Info: Link coloring OFF on input line 36.
- (./main.out) (./main.out)
+)) (/usr/local/texlive/2026basic/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2025/01/14 v1.3e Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 149.
+
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+Package hyperref Info: Link coloring ON on input line 28.
+
+(./main.out) (./main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 39.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 31.
 
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 39.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 31.
 
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
+3.
 
-{/usr/local/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-(./main.toc)
-\tf@toc=\write4
-\openout4 = `main.toc'.
-
- [2] [3] [4]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 117.
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+) [1{/usr/local/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+{/usr/local/texlive/2026basic/texmf-dist/fonts/enc/dvips/vntex/t5.enc}
 
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 117.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 117.
-
-[5]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 124.
+{/usr/local/texlive/2026basic/texmf-dist/fonts/enc/dvips/base/8r.enc}]
+Underfull \hbox (badness 1521) in paragraph at lines 71--71
+[]\T5/ptm/b/n/12 ^^^÷íng cong t«ng c÷íng ¡nh s¡ng (LE-
+ []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 124.
+(hyperref)                removing `math shift' on input line 107.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 124.
+(hyperref)                removing `subscript' on input line 107.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 131.
+(hyperref)                removing `math shift' on input line 107.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 131.
+(hyperref)                removing `math shift' on input line 114.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 131.
+(hyperref)                removing `subscript' on input line 114.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 137.
+(hyperref)                removing `math shift' on input line 114.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 137.
+(hyperref)                removing `math shift' on input line 121.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 137.
+(hyperref)                removing `subscript' on input line 121.
 
-[6] [7] [8] [9] (./main.aux)
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 121.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 127.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 127.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 127.
+
+[2] [3] (./main.aux
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 8
+.
+
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+))
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 2DD3F4DB022AB2E1182AAB7410B749A9;6531.
+(rerunfilecheck)             Checksum: 4524A314F46090944BF46DC470B3E831;6309.
  ) 
 Here is how much of TeX's memory you used:
- 13999 strings out of 469006
- 220160 string characters out of 5454814
- 642220 words of memory out of 5000000
- 42467 multiletter control sequences out of 15000+600000
- 646819 words of font info for 84 fonts, out of 8000000 for 9000
+ 13830 strings out of 469006
+ 218585 string characters out of 5454814
+ 647635 words of memory out of 5000000
+ 42289 multiletter control sequences out of 15000+600000
+ 662724 words of font info for 84 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 75i,11n,79p,1322b,473s stack positions out of 10000i,1000n,20000p,200000b,200000s
- </Users/admin/Library/texlive/2026basic/texmf-var/fonts/pk/ljfour/jknappen/e
-c/tcrm1200.600pk></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmbx12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmex10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2026basic/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2026basic/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2026basic/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026basic/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2026basic/t
-exmf-dist/fonts/type1/vntex/vnr/vnbx10.pfb></usr/local/texlive/2026basic/texmf-
-dist/fonts/type1/vntex/vnr/vnbx12.pfb></usr/local/texlive/2026basic/texmf-dist/
-fonts/type1/vntex/vnr/vnr10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/
-type1/vntex/vnr/vnr12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/
-vntex/vnr/vnti12.pfb>
-Output written on main.pdf (9 pages, 199529 bytes).
+ 75i,11n,79p,1332b,465s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx1
+0.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mex10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi7.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2026basic/texmf-dist/fo
+nts/type1/vntex/urwvn/utmb8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts
+/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type
+1/vntex/urwvn/utmr8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/v
+ntex/urwvn/utmri8v.pfb>
+Output written on main.pdf (3 pages, 189111 bytes).
 PDF statistics:
- 287 PDF objects out of 1000 (max. 8388607)
- 244 compressed objects within 3 object streams
- 53 named destinations out of 1000 (max. 500000)
- 217 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 227 PDF objects out of 1000 (max. 8388607)
+ 192 compressed objects within 2 object streams
+ 48 named destinations out of 1000 (max. 500000)
+ 209 words of extra memory for PDF output out of 10000 (max. 10000000)
 
