@@ -1,12 +1,15 @@
-\documentclass[10pt,twocolumn,a4paper]{article}
+\documentclass[a4paper]{article}
 
 \usepackage[T5]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[vietnamese]{babel}
 \usepackage{times}
+\usepackage[fontsize=13pt]{scrextend}
 
-% Lề trang
-\usepackage[top=2cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
+% Lề trang chuẩn báo cáo (Trái 3cm, Phải 2cm, Trên 2cm, Dưới 2cm)
+\usepackage[top=2cm, bottom=2cm, left=3cm, right=2cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing % Giãn dòng 1.5 cho chuẩn báo cáo
 
 % Các gói hỗ trợ toán học và hình ảnh
 \usepackage{amsmath, amssymb, amsfonts}
@@ -19,15 +22,65 @@
 \usepackage{float}
 \usepackage{booktabs}
 
-% Line spacing - Default single spacing for paper style
-
-\title{\huge \textbf{Nghiên cứu về Thuật toán Zero-DCE: Tăng cường Ảnh Thiếu sáng bằng Phương pháp Ước lượng Đường cong Không tham chiếu}}
-\author{\textbf{Nhóm nghiên cứu: [Tên thành viên]} \\ \small Lĩnh vực: Thị giác Máy tính và Xử lý Ảnh \\ \small Trường Đại học Bách Khoa}
-\date{} % Remove date as common in papers
 
 \begin{document}
+\pagenumbering{roman}
 
-\maketitle
+% --- TRANG BÌA ---
+\begin{titlepage}
+    \centering
+    \begingroup
+        \fontsize{14pt}{16pt}\selectfont
+        \textbf{TRƯỜNG ĐẠI HỌC GIAO THÔNG VẬN TẢI TP. HỒ CHÍ MINH} \\
+    \endgroup
+    
+    \vspace{0.2cm}
+    \noindent\rule{\textwidth}{1pt}
+    
+    \vspace{1.5cm}
+    \includegraphics[width=10cm]{uth_logo.png} \\
+    \vspace{1.5cm}
+    
+    \begingroup
+        \fontsize{14pt}{16pt}\selectfont
+        \textbf{BÁO CÁO TIỂU LUẬN} \\
+        \vspace{0.3cm}
+        \textbf{MÔN HỌC: GIẢI THUẬT NÂNG CAO} \\
+    \endgroup
+    
+    \vspace{1.5cm}
+    
+    \begingroup
+        \fontsize{16pt}{20pt}\selectfont
+        \textbf{ĐỀ TÀI:} \\
+        \vspace{0.3cm}
+        \textbf{NGHIÊN CỨU VỀ THUẬT TOÁN ZERO-DCE:\\ TĂNG CƯỜNG ẢNH THIẾU SÁNG BẰNG PHƯƠNG PHÁP ƯỚC LƯỢNG ĐƯỜNG CONG KHÔNG THAM CHIẾU} \\
+    \endgroup
+    
+    \vspace{2.5cm}
+    
+    \begin{flushright}
+        \fontsize{13pt}{15pt}\selectfont
+        \begin{tabular}{ll}
+            \textbf{Sinh viên thực hiện:} & Đỗ Hữu Khang \\
+            \textbf{Lớp:} & KHOA HỌC MÁY TÍNH \\
+            \textbf{Mã số sinh viên:} & 2580101060 \\
+            \textbf{Giảng viên hướng dẫn:} & Trần Lê Anh
+        \end{tabular}
+    \end{flushright}
+    
+    \vfill
+    \fontsize{12pt}{14pt}\selectfont
+    \textbf{TP. HỒ CHÍ MINH, NĂM 2026}
+\end{titlepage}
+
+\clearpage
+
+% --- MỤC LỤC ---
+\pagenumbering{arabic} % Bắt đầu đánh số trang từ trang mục lục này
+\setcounter{page}{1}
+\tableofcontents
+\clearpage
 
 \begin{abstract}
 \noindent Tăng cường hình ảnh trong điều kiện thiếu sáng (Low-Light Image Enhancement - LLIE) là một thách thức quan trọng trong lĩnh vực thị giác máy tính. Các phương pháp học sâu truyền thống thường dựa trên việc huấn luyện có giám sát với các cặp hình ảnh thiếu sáng và ảnh chuẩn (ground-truth), điều này gây ra khó khăn lớn trong việc thu thập dữ liệu thực tế. Bài báo này trình bày chi tiết về Zero-DCE (Zero-Reference Deep Curve Estimation), một phương pháp tiếp cận đột phá không cần dữ liệu tham chiếu. Zero-DCE coi bài toán tăng cường ánh sáng là bài toán ước lượng các đường cong điều chỉnh ánh sáng đặc thù cho từng điểm ảnh thông qua một mạng thần kinh tích chập nhẹ (DCE-Net). Chúng tôi phân tích sâu về cơ sở lý thuyết của các đường cong tăng cường (LE-curve), kiến trúc mạng, và bộ bốn hàm mất mát không tham chiếu độc đáo. Kết quả thực nghiệm cho thấy Zero-DCE đạt được hiệu suất vượt trội về cả chất lượng ảnh lẫn tốc độ xử lý, mở ra khả năng ứng dụng thời gian thực trên các thiết bị di động.
@@ -76,7 +129,11 @@ Hàm tăng cường cơ bản được định nghĩa là:
 \begin{equation}
     LE(I(x); \alpha) = I(x) + \alpha I(x)(1 - I(x))
 \end{equation}
-Trong đó $I(x)$ là ảnh đầu vào chuẩn hóa về $[0, 1]$. Tham số $\alpha$ là trọng tâm của mô hình. Khi $\alpha$ dương, giá trị điểm ảnh sẽ được đẩy lên cao hơn. Đặc biệt, tại các giá trị $I(x)$ gần 0 hoặc 1, thành phần $\alpha I(x)(1 - I(x))$ sẽ nhỏ, giúp bảo toàn các vùng đen tuyệt đối và trắng tuyệt đối.
+Trong đó $I(x)$ là giá trị điểm ảnh đầu vào đã được chuẩn hóa về đoạn $[0, 1]$. Cụ thể, các giá trị kênh màu của điểm ảnh gốc (thường ở định dạng 8-bit có giá trị nguyên trong đoạn $[0, 255]$) sẽ được đưa về đoạn $[0, 1]$ theo công thức:
+\begin{equation}
+    I(x) = \frac{x_{\text{RGB}}}{255}
+\end{equation}
+với $x_{\text{RGB}} \in [0, 255]$ là giá trị số của kênh màu (Red, Green, Blue) tại điểm ảnh cần xét. Tham số $\alpha$ là trọng tâm của mô hình. Khi $\alpha$ dương, giá trị điểm ảnh sẽ được đẩy lên cao hơn. Đặc biệt, tại các giá trị $I(x)$ gần 0 hoặc 1, thành phần $\alpha I(x)(1 - I(x))$ sẽ nhỏ, giúp bảo toàn các vùng đen tuyệt đối và trắng tuyệt đối.
 
 \subsubsection{Cấu trúc bậc cao thông qua lặp lại}
 Để mô hình hóa các biến đổi phức tạp, Zero-DCE áp dụng đường cong này lặp lại $n$ lần:
@@ -84,6 +141,68 @@ Trong đó $I(x)$ là ảnh đầu vào chuẩn hóa về $[0, 1]$. Tham số $\
     I_n(x) = I_{n-1}(x) + \alpha_n I_{n-1}(x)(1 - I_{n-1}(x))
 \end{equation}
 Mỗi bước lặp $n$ sử dụng một bản đồ tham số $\alpha_n$ khác nhau. Với $n=8$, hàm cuối cùng có bậc là $2^8 = 256$, đủ sức mạnh để khôi phục ánh sáng ngay cả trong những điều kiện khắc nghiệt nhất.
+
+\subsubsection{Ví dụ minh họa quá trình tăng cường}
+Để hiểu rõ hơn về cách LE-curve hoạt động và bảo toàn các vùng sáng/tối tuyệt đối, chúng ta hãy xem xét một ví dụ với 3 điểm ảnh ban đầu có giá trị kênh màu RGB lần lượt là Đen ($0, 0, 0$), Trắng ($255, 255, 255$), và Xám tối ($51, 51, 51$). 
+
+Trước khi đưa vào công thức tăng cường, các giá trị này được chuẩn hóa về khoảng $[0, 1]$ bằng cách chia giá trị của từng kênh màu cho $255$. 
+
+Vì đây là các điểm ảnh đơn sắc hoặc xám (có giá trị của ba kênh màu R, G, B trùng nhau), ta có thể đại diện giá trị tính toán thông qua một kênh duy nhất nhằm đơn giản hóa minh họa:
+\begin{itemize}
+    \item \textbf{Đen} ($R=0, G=0, B=0$): Do điểm ảnh đen hoàn toàn có giá trị cường độ trên cả ba kênh bằng 0, ta có giá trị đầu vào chuẩn hóa tương ứng là $I_0 = \frac{0}{255} = 0.0$.
+    \item \textbf{Trắng} ($R=255, G=255, B=255$): Do điểm ảnh trắng hoàn toàn đạt mức cường độ tối đa bằng 255 trên cả ba kênh, ta thu được giá trị chuẩn hóa là $I_0 = \frac{255}{255} = 1.0$.
+    \item \textbf{Xám tối} ($R=51, G=51, B=51$): Do điểm ảnh xám tối có giá trị kênh màu bằng 51, ta thu được giá trị chuẩn hóa là $I_0 = \frac{51}{255} = 0.2$.
+\end{itemize}
+
+\noindent \textbf{Lưu ý đối với ảnh màu:} Đối với các điểm ảnh có màu sắc bất kỳ (khi các kênh R, G, B có giá trị khác nhau), ví dụ điểm ảnh có mã màu RGB là $(30, 24, 60)$, thuật toán sẽ chuẩn hóa độc lập từng kênh màu trước khi đưa vào tính toán:
+\begin{itemize}
+    \item Kênh Red ($R=30$): $I_{0, R} = \frac{30}{255} \approx 0.118$
+    \item Kênh Green ($G=24$): $I_{0, G} = \frac{24}{255} \approx 0.094$
+    \item Kênh Blue ($B=60$): $I_{0, B} = \frac{60}{255} \approx 0.235$
+\end{itemize}
+Sau đó, mỗi kênh $I_{0, R}$, $I_{0, G}$, $I_{0, B}$ sẽ được tăng cường song song và độc lập bằng các tham số $\alpha_R, \alpha_G, \alpha_B$ tương ứng được dự đoán bởi mạng thần kinh.
+
+Giả sử mạng DCE-Net dự đoán tham số $\alpha = 0.5$ (hệ số kéo sáng) cho cả 3 điểm ảnh đơn sắc ở trên và chúng ta thực hiện tính toán qua 3 vòng lặp ($n=3$):
+
+
+\begin{itemize}
+    \item \textbf{Điểm ảnh Đen ($I_0 = 0.0$)}: 
+    \begin{itemize}
+        \item Lần lặp 1: $I_1 = 0.0 + 0.5 \times 0.0 \times (1 - 0.0) = 0.0$
+        \item Kết quả sau 3 vòng lặp vẫn là $0.0$. Tính chất này cho thấy thuật toán không làm "xám hóa" các vùng tối đen hoàn toàn trong ảnh gốc, giúp bảo toàn độ tương phản tự nhiên của vật thể.
+    \end{itemize}
+    
+    \item \textbf{Điểm ảnh Trắng ($I_0 = 1.0$)}: 
+    \begin{itemize}
+        \item Lần lặp 1: $I_1 = 1.0 + 0.5 \times 1.0 \times (1 - 1.0) = 1.0 + 0 = 1.0$
+        \item Kết quả sau 3 vòng lặp vẫn là $1.0$. Nhờ thiết kế toán học khéo léo, hàm sẽ triệt tiêu phần tăng cường khi $I(x)$ tiến tới 1, giúp thuật toán tự động tránh hiện tượng lóa sáng (over-exposure) ở các nguồn sáng.
+    \end{itemize}
+    
+    \item \textbf{Điểm ảnh Xám tối ($I_0 = 0.2$)}: 
+    \begin{itemize}
+        \item Lần lặp 1: $I_1 = 0.2 + 0.5 \times 0.2 \times (1 - 0.2) = 0.2 + 0.08 = 0.28$
+        \item Lần lặp 2: $I_2 = 0.28 + 0.5 \times 0.28 \times (1 - 0.28) = 0.28 + 0.5 \times 0.28 \times 0.72 = 0.28 + 0.1008 = 0.3808$
+        \item Lần lặp 3: $I_3 = 0.3808 + 0.5 \times 0.3808 \times (1 - 0.3808) \approx 0.3808 + 0.5 \times 0.3808 \times 0.6192 \approx 0.3808 + 0.1179 \approx 0.4987$
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Khôi phục về không gian màu RGB 8-bit}
+Sau khi thu được giá trị cường độ chuẩn hóa ở vòng lặp cuối cùng (ở đây là $I_3$), thuật toán thực hiện khôi phục điểm ảnh về không gian màu 8-bit ban đầu ($[0, 255]$) bằng cách nhân với $255$ và làm tròn đến số nguyên gần nhất:
+\begin{equation}
+    x_{\text{RGB, final}} = \text{round}(I_n(x) \times 255)
+\end{equation}
+
+Áp dụng công thức khôi phục này cho 3 điểm ảnh trong ví dụ trên:
+\begin{itemize}
+    \item \textbf{Điểm ảnh Đen}: $x_{\text{RGB, final}} = \text{round}(0.0 \times 255) = 0 \rightarrow$ Điểm ảnh khôi phục là Đen ($0, 0, 0$).
+    \item \textbf{Điểm ảnh Trắng}: $x_{\text{RGB, final}} = \text{round}(1.0 \times 255) = 255 \rightarrow$ Điểm ảnh khôi phục là Trắng ($255, 255, 255$).
+    \item \textbf{Điểm ảnh Xám tối}: $x_{\text{RGB, final}} = \text{round}(0.4987 \times 255) = \text{round}(127.1685) \approx 127 \rightarrow$ Điểm ảnh khôi phục là Xám trung tính ($127, 127, 127$).
+\end{itemize}
+
+Thông qua ví dụ toán học trên, ta thấy điểm ảnh xám tối ban đầu từ mức màu $(51, 51, 51)$ đã được tăng cường độ sáng lên thành màu xám sáng hơn nhiều là $(127, 127, 127)$ một cách mượt mà và tiệm tiến qua từng bước. Trong khi đó, các giới hạn đen/trắng hai đầu không hề bị phá vỡ hay bị cắt cụt (clipping). 
+
+Trong cấu hình thực tế của mô hình gốc, Zero-DCE lặp lại $n=8$ lần với các giá trị $\alpha_n$ khác nhau được dự đoán độc lập tại mỗi vòng lặp, tạo ra quỹ đạo kéo sáng cực kỳ tinh tế và phức tạp, thích nghi với từng vùng sáng tối khác nhau trên ảnh.
+
 
 \subsection{Mạng thần kinh DCE-Net}
 DCE-Net là một mạng tích chập hoàn toàn (FCN) với nhiệm vụ duy nhất: từ ảnh đầu vào $I$, tạo ra các bản đồ tham số $\mathcal{A} = \{\alpha_1, \alpha_2, ..., \alpha_n\}$.
