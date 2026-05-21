@@ -249,6 +249,33 @@ Dựa trên giả định Gray-world, $L_{col}$ ép các kênh màu R, G, B có 
     L_{tv} = \frac{1}{N} \sum_{n=1}^{N} \sum_{c \in \{R,G,B\}} (\|\nabla_x \alpha_{n,c}\|_2^2 + \|\nabla_y \alpha_{n,c}\|_2^2)
 \end{equation}
 
+\section{Quá trình Huấn luyện Mô hình}
+Quá trình huấn luyện của mô hình Zero-DCE diễn ra theo một chu trình khép kín và không cần tham chiếu (zero-reference), bao gồm bốn bước chính sau:
+
+\subsection{Chuẩn bị dữ liệu (Data Preparation)}
+Mô hình Zero-DCE không cần các cặp ảnh "một tối - một sáng của cùng một khung cảnh" (paired data) để huấn luyện. Điều này giúp tiết kiệm rất nhiều công sức thu thập và xử lý dữ liệu. Người dùng chỉ cần cung cấp cho mô hình một tập hợp các bức ảnh đầu vào với các điều kiện ánh sáng khác nhau (chủ yếu là ảnh thiếu sáng).
+
+\subsection{Quá trình lan truyền xuôi (Forward Pass)}
+Trong bước lan truyền xuôi:
+\begin{itemize}
+    \item Bức ảnh thiếu sáng được đưa vào mạng CNN (DCE-Net).
+    \item Mạng sẽ tính toán và xuất ra một tập hợp các "bản đồ tham số" (Curve Parameters, ký hiệu là $\alpha$).
+    \item Hệ thống sẽ lấy bức ảnh gốc, kết hợp với các tham số $\alpha$ này thông qua một phương trình toán học để uốn nắn ánh sáng theo nhiều vòng lặp (thường cấu hình là 8 vòng lặp - iterations). Kết quả cuối cùng thu được là một bức ảnh đã được tăng cường độ sáng (Enhanced Image).
+\end{itemize}
+
+\subsection{Đánh giá chất lượng bằng Hàm mất mát (Loss Functions)}
+Vì không có ảnh chuẩn (ground-truth) để so sánh điểm ảnh với điểm ảnh (pixel-to-pixel), sự thành bại trong huấn luyện của Zero-DCE phụ thuộc hoàn toàn vào 4 hàm mất mát không giám sát được thiết kế đặc thù để tự đánh giá chất lượng bức ảnh vừa tạo ra:
+\begin{itemize}
+    \item \textbf{Hàm kiểm soát phơi sáng (Exposure Control Loss - $L_{exp}$)}: Mạng sẽ chia bức ảnh ra thành các vùng nhỏ cục bộ và đo độ sáng trung bình. Nó ép độ sáng này tiến về một mức lý tưởng (thường cài đặt bằng $0.6$). Nếu vùng nào quá chói (overexposed) hoặc vẫn quá tối (underexposed), giá trị lỗi sẽ tăng lên.
+    \item \textbf{Hàm hằng số màu (Color Constancy Loss - $L_{col}$)}: Khi tăng sáng, ảnh rất dễ bị ám màu hoặc lệch tông. Dựa trên giả thuyết "Thế giới xám" (Grey-world assumption), hàm này ép giá trị trung bình của ba kênh màu Đỏ, Xanh lá, Xanh dương ($R, G, B$) trong toàn bức ảnh không bị lệch nhau quá nhiều, giúp màu sắc giữ được sự tự nhiên.
+    \item \textbf{Hàm độ mượt của ánh sáng (Illumination Smoothness Loss - $L_{tv_A}$)}: Nếu tham số uốn cong ánh sáng của một điểm ảnh quá khác biệt so với điểm ảnh ngay cạnh nó, bức ảnh sẽ bị nhiễu hạt hoặc xuất hiện các vệt sáng gắt (artifacts). Hàm này phạt sự thay đổi đột ngột của tham số $\alpha$ giữa các vùng lân cận, giúp ánh sáng lan tỏa một cách mượt mà.
+    \item \textbf{Hàm nhất quán không gian (Spatial Consistency Loss - $L_{spa}$)}: Hàm này so sánh sự chênh lệch (gradient) giữa các vùng trong ảnh gốc và ảnh đầu ra. Nó đảm bảo rằng việc tăng sáng không làm mất đi các chi tiết, ranh giới vật thể và cấu trúc tổng thể ban đầu của bức ảnh.
+\end{itemize}
+
+\subsection{Cập nhật trọng số (Backpropagation)}
+Tổng của 4 hàm mất mát trên sẽ tạo thành một Lỗi Tổng (Total Loss). Mạng sẽ sử dụng thuật toán tối ưu hóa (thường là Adam Optimizer) để tính toán đạo hàm và thực hiện lan truyền ngược (Backpropagation).
+Quá trình này sẽ từ từ điều chỉnh các trọng số (weights) bên trong mạng lưới CNN ban đầu. Qua nhiều vòng lặp huấn luyện (epochs), mạng DCE-Net sẽ tự học được cách rút ra các bản đồ tham số $\alpha$ tối ưu nhất sao cho bức ảnh cuối cùng thỏa mãn cả 4 tiêu chí: sáng vừa đủ, màu sắc tự nhiên, không bị vỡ hạt hay nhiễu khối và giữ nguyên chi tiết cấu trúc.
+
 \section{Kết quả Thực nghiệm và Thảo luận}
 
 \subsection{Đánh giá Định lượng}
