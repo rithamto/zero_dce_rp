@@ -139,139 +139,56 @@ Kết quả thực nghiệm cho thấy Zero-DCE đạt được hiệu suất v�
 
 \section{Giới thiệu chi tiết và Tầm quan trọng của Đề tài}
 
-\subsection{Tầm quan trọng của Tăng cường Ảnh Thiếu sáng trong Kỷ nguyên Số}
-Trong thế kỷ 21, thị giác máy tính và trí tuệ nhân tạo đã trở thành những trụ cột cốt lõi của cuộc Cách mạng Công nghiệp 4.0. Từ camera giám sát thông minh, xe tự hành, máy bay không người lái (drones), cho đến chẩn đoán hình ảnh y khoa và nhiếp ảnh điện toán trên điện thoại thông minh, tất cả đều phụ thuộc hoàn toàn vào chất lượng của dữ liệu hình ảnh đầu vào. Tuy nhiên, việc thu nhận hình ảnh trong điều kiện ánh sáng yếu (như ban đêm, trong nhà, trong các đường hầm hoặc môi trường có độ tương phản phức tạp) luôn là một rào cản kỹ thuật rất lớn đối với các cảm biến quang học hiện đại. 
+\subsection{Đặt vấn đề và Tầm quan trọng của Đề tài}
+Trong kỷ nguyên số, thị giác máy tính và trí tuệ nhân tạo đã trở thành những trụ cột cốt lõi của cuộc Cách mạng Công nghiệp 4.0. Các hệ thống như camera giám sát thông minh, xe tự hành, máy bay không người lái, y tế và nhiếp ảnh điện toán đều phụ thuộc hoàn toàn vào chất lượng dữ liệu hình ảnh đầu vào. Tuy nhiên, việc thu nhận hình ảnh trong điều kiện thiếu sáng (underexposure) luôn là rào cản kỹ thuật lớn do giới hạn vật lý của cảm biến quang học, gây ra các hiện tượng suy giảm nghiêm trọng: độ tương phản cực thấp làm mất ranh giới cấu trúc vật thể; nhiễu hạt (noise) và nhiễu màu mạnh do tăng ISO quá mức; sai lệch màu sắc (color distortion) do tỷ lệ tín hiệu trên nhiễu (SNR) thấp. 
 
-Khi ánh sáng môi trường không đủ, hình ảnh thu được thường bị suy giảm chất lượng nghiêm trọng với các biểu hiện phổ biến bao gồm:
+Do đó, việc nghiên cứu các giải pháp tăng cường ảnh thiếu sáng (Low-Light Image Enhancement - LLIE) đóng vai trò sống còn trong việc nâng cao độ chính xác của các tác vụ AI hạ nguồn như phát hiện vật thể, phân vùng ngữ cảnh và nhận diện khuôn mặt.
+
+\subsection{Cơ chế sinh lý thị giác và vật lý cảm biến}
+Để giải quyết hiệu quả bài toán LLIE, cần thấu hiểu sự khác biệt giữa thị giác con người và cảm biến kỹ thuật số:
 \begin{itemize}
-    \item \textbf{Độ tương phản cực thấp}: Phần lớn các chi tiết quan trọng bị chìm vào bóng tối sâu (underexposure), làm mất đi các ranh giới cấu trúc của vật thể.
-    \item \textbf{Nhiễu hạt và nhiễu màu mạnh (High Noise level)}: Để thu được ánh sáng yếu, các cảm biến phải đẩy độ nhạy sáng (ISO) lên rất cao. Điều này vô tình khuếch đại các dòng điện nhiễu nhiệt và nhiễu đọc bên trong cảm biến vật lý, tạo ra vô số đốm hạt nhiễu làm mờ nhạt chi tiết.
-    \item \textbf{Sai lệch màu sắc nghiêm trọng (Color Distortion)}: Tỷ lệ tín hiệu trên nhiễu (SNR) thấp làm cho cảm biến không ghi nhận chính xác phổ màu của ánh sáng phản xạ, dẫn đến hiện tượng sai tông màu, mất bão hòa màu hoặc ám màu nặng.
+    \item \textbf{Thị giác bóng tối ở người (Scotopic Vision):} Sử dụng tế bào que võng mạc kết hợp với cơ chế thích nghi phi tuyến của não bộ để nhận biết hình khối mượt mà trong bóng đêm mà không bị nhiễu hạt hay mất dải màu.
+    \item \textbf{Cơ chế nhiễu cảm biến vật lý (CMOS/CCD):} Khi thiếu photon, các cảm biến phải đối mặt với các nguồn nhiễu ngẫu nhiên phức tạp bao gồm nhiễu phát xạ photon (Photon Shot Noise) tuân theo phân phối Poisson, nhiễu tối nhiệt (Dark Current Noise) do nhiệt độ kích thích electron tự do, và nhiễu đọc mạch điện (Readout Noise) trong quá trình ADC.
 \end{itemize}
+Các phương pháp phần mềm bắt buộc phải tìm cách nâng sáng tín hiệu hữu ích đồng thời ức chế các nguồn nhiễu vật lý này.
 
-Việc nghiên cứu các giải pháp tăng cường ảnh thiếu sáng không đơn thuần phục vụ nhu cầu thẩm mỹ cho cá nhân, mà đóng vai trò sống còn trong việc nâng cao độ tin cậy của các hệ thống AI hạ nguồn (downstream tasks) như phát hiện vật thể (object detection), phân vùng ngữ cảnh (semantic segmentation) và nhận diện khuôn mặt trong điều kiện thiếu sáng.
+\subsection{Ứng dụng thực tế và Bố cục Báo cáo}
+Thuật toán tăng cường ảnh thiếu sáng có phạm vi ứng dụng thực tế vô cùng rộng lớn: từ hệ thống hỗ trợ lái xe nâng cao (ADAS) giúp xe tự hành di chuyển an toàn vào ban đêm; camera giám sát an ninh nhận diện khuôn mặt nghi phạm; thiết bị bay không người lái trong tìm kiếm cứu nạn; cho đến nội soi y tế giúp bác sĩ chẩn đoán mô tổn thương.
 
-\subsection{Cơ chế sinh lý học thị giác và Cơ chế nhiễu cảm biến vật lý}
-Để hiểu rõ tại sao bài toán tăng cường ánh sáng lại thách thức như vậy, chúng ta cần tìm hiểu sâu về hai khía cạnh: sinh lý học thị giác con người và vật lý học cảm biến hình ảnh kỹ thuật số.
-
-\subsubsection{Thị giác bóng tối ở người (Scotopic Vision)}
-Hệ thống thị giác của con người sử dụng hai loại tế bào thụ cảm ánh sáng trên võng mạc: tế bào nón (cone cells) chịu trách nhiệm cho thị giác ban ngày (photopic vision) và nhận diện màu sắc chi tiết; và tế bào que (rod cells) chịu trách nhiệm cho thị giác bóng tối (scotopic vision) với độ nhạy sáng cực kỳ cao nhưng không có khả năng phân biệt màu sắc. 
-
-Khi ánh sáng môi trường giảm sâu, mắt người tự động chuyển đổi sang sử dụng tế bào que, đồng thời đồng tử giãn nở tối đa để đón nhận nhiều photon nhất có thể. Nhờ cơ chế tự thích nghi phi tuyến tính phức tạp trong não bộ, con người vẫn có thể nhận biết cấu trúc hình khối trong bóng đêm cực kỳ mượt mà mà không có cảm giác bị "vỡ hạt" hay "đứt gãy" dải màu sắc như các thiết bị kỹ thuật số.
-
-\subsubsection{Cơ chế nhiễu cảm biến vật lý (Sensor Noise Mechanics)}
-Trái ngược với sự kỳ diệu của mắt sinh học, các cảm biến hình ảnh bán dẫn (CMOS/CCD) hoạt động dựa trên hiệu ứng quang điện để chuyển đổi photon thành điện tích. Trong môi trường thiếu sáng, lượng photon rơi vào mỗi pixel là cực kỳ ít và không ổn định, dẫn đến các nguồn nhiễu vật lý sau:
-\begin{enumerate}
-    \item \textbf{Nhiễu phát xạ photon (Photon Shot Noise)}: Xuất hiện do bản chất lượng tử ngẫu nhiên của các hạt ánh sáng. Số lượng photon đi vào pixel tuân theo phân phối Poisson. Khi số photon trung bình rất nhỏ, độ lệch chuẩn tương đối sẽ rất lớn, gây ra sự thăng giáng độ sáng không đồng đều.
-    \item \textbf{Nhiễu tối nhiệt (Dark Current Noise)}: Ngay cả khi không có ánh sáng, nhiệt độ môi trường vẫn kích thích các electron tự do dịch chuyển trong chất bán dẫn của cảm biến, tạo ra dòng điện tối ảo. Dòng điện này tích lũy theo thời gian phơi sáng và gây ra các hạt nhiễu cố định.
-    \item \textbf{Nhiễu đọc mạch điện (Readout Noise)}: Xuất hiện trong quá trình khuếch đại tín hiệu điện áp analog và chuyển đổi tương tự - số (ADC). Đây là mức nhiễu nền tối thiểu của thiết bị phần cứng.
-\end{enumerate}
-
-Các phương pháp tăng cường ảnh thiếu sáng bằng phần mềm bắt buộc phải tìm cách cân bằng giữa việc nâng độ sáng của tín hiệu hữu ích và việc triệt tiêu sự phóng đại của các nguồn nhiễu vật lý phức tạp này.
-
-\subsection{Các lĩnh vực ứng dụng thực tế quan trọng}
-Thuật toán tăng cường ảnh thiếu sáng có phạm vi ứng dụng thực tế vô cùng rộng lớn:
-\begin{itemize}
-    \item \textbf{Hệ thống Hỗ trợ Lái xe Nâng cao (ADAS) và Xe tự hành (Autonomous Vehicles)}: Xe tự hành di chuyển vào ban đêm đối mặt với nguy cơ xảy ra tai nạn rất cao do tầm nhìn camera bị hạn chế. Thuật toán LLIE thời gian thực giúp làm sáng rõ mặt đường, người đi bộ và các biển báo, cung cấp đầu vào chất lượng cho mạng nơ-ron phát hiện vật thể hoạt động chính xác.
-    \item \textbf{Giám sát An ninh và Quốc phòng (Surveillance Systems)}: Camera an ninh lắp đặt tại các góc tối thường xuyên thu được hình ảnh mờ tối không thể nhận dạng. Việc tăng sáng giúp lực lượng chức năng nhận diện khuôn mặt nghi phạm và biển số phương tiện dễ dàng.
-    \item \textbf{Thiết bị Bay không người lái (Drones) và Tìm kiếm Cứu nạn}: Hỗ trợ bay và định vị trong các khu rừng rậm rạp vào ban đêm hoặc trong các hang động thiếu sáng phục vụ cứu hộ cứu nạn.
-    \item \textbf{Y tế (Medical Imaging)}: Hỗ trợ nội soi phẫu thuật trong các khoang cơ thể tối hẹp, giúp bác sĩ nhìn rõ các mao mạch và mô tổn thương.
-\end{itemize}
-
-\subsection{Bố cục của Báo cáo Nghiên cứu}
-Để trình bày một cách mạch lạc và có hệ thống toàn bộ quá trình nghiên cứu về Zero-DCE, báo cáo này được chia thành các phần như sau:
-\begin{itemize}
-    \item \textbf{Chương 1}: Giới thiệu chi tiết về tầm quan trọng của đề tài, các khía cạnh vật lý cảm biến và phạm vi ứng dụng thực tế.
-    \item \textbf{Chương 2}: Điểm qua lịch sử phát triển của các phương pháp tăng cường ảnh thiếu sáng, từ truyền thống cho đến các công nghệ học sâu giám sát và không giám sát.
-    \item \textbf{Chương 3}: Phân tích sâu sắc kiến trúc hệ thống và lý thuyết toán học của đường cong LE-curve trong thuật toán Zero-DCE.
-    \item \textbf{Chương 4}: Khảo sát chi tiết cấu trúc toán học tinh tế của bộ 4 hàm mất mát không tham chiếu độc đáo - chìa khóa thành công của mô hình.
-    \item \textbf{Chương 5}: Trình bày kết quả thực nghiệm định lượng và định tính, so sánh tốc độ xử lý và phân tích các trường hợp thất bại (failure cases).
-    \item \textbf{Chương 6}: Thảo luận về các ứng dụng hạ nguồn thực tiễn và giải pháp tối ưu hóa phần cứng nhúng thời gian thực.
-    \item \textbf{Chương 7}: Tổng kết nghiên cứu và vạch ra các hướng phát triển trong tương lai.
-\end{itemize}
+Để trình bày một cách hệ thống, báo cáo nghiên cứu này được chia thành các chương cốt lõi: Chương 1 giới thiệu tầm quan trọng và bối cảnh đề tài; Chương 2 phân tích lịch sử các phương pháp từ truyền thống đến học sâu; Chương 3 trình bày lý thuyết đường cong LE-curve phi tuyến; Chương 4 đi sâu vào cấu trúc bộ 4 hàm loss không tham chiếu; Chương 5 giới thiệu chi tiết mã nguồn PyTorch và quy trình huấn luyện; Chương 6 phân tích các kết quả định lượng, định tính và tốc độ xử lý; và Chương 7 đề xuất các hướng cải tiến tương lai bao gồm mô hình Zero-DCE++.
 
 \clearpage
 
 \section{Các công trình liên quan và Phân tích Lịch sử}
 
 \subsection{Phương pháp xử lý ảnh trong miền không gian (Spatial Domain Methods)}
-Các phương pháp truyền thống tiếp cận bài toán bằng cách biến đổi trực tiếp giá trị phân phối điểm ảnh trên ma trận ảnh gốc. Hai kỹ thuật kinh điển nhất là Cân bằng lược đồ xám (Histogram Equalization) và Hiệu chỉnh Gamma (Gamma Correction).
+Các phương pháp truyền thống tiếp cận bài toán tăng cường ảnh thiếu sáng bằng cách biến đổi trực tiếp giá trị phân phối điểm ảnh trên ma trận ảnh gốc. Hai kỹ thuật kinh điển nhất là Cân bằng lược đồ xám (Histogram Equalization) và Hiệu chỉnh Gamma (Gamma Correction).
+\begin{itemize}
+    \item \textbf{Cân bằng lược đồ xám toàn cục (Global Histogram Equalization - GHE):} Dàn trải phân phối mức xám của hình ảnh để đạt được lược đồ tần suất phân bố đều, mở rộng dải động. Hàm biến đổi CDF được định nghĩa là $s = T(r) = \int_{0}^{r} p_r(w) dw$. GHE tính toán rất nhanh nhưng dễ gây ra hiện tượng tăng sáng quá mức (over-enhancement) ở các vùng vốn đã đủ sáng và làm mất chi tiết.
+    \item \textbf{Cân bằng lược đồ xám thích ứng giới hạn tương phản (CLAHE):} CLAHE chia hình ảnh thành các ô nhỏ (tiles) không chồng chéo, cân bằng lược đồ xám độc lập cho từng ô và giới hạn mức cắt (clipping limit) để tránh phóng đại nhiễu. Phép nội suy song tuyến (bilinear interpolation) được sử dụng để làm mịn giá trị điểm ảnh chuyển tiếp giữa các ô:
+    \begin{equation}
+        I_{\text{new}}(x, y) = (1-a)(1-b)I_A + a(1-b)I_B + (1-a)bI_C + abI_D
+    \end{equation}
+\end{itemize}
 
-\subsubsection{Cân bằng lược đồ xám toàn cục (Global Histogram Equalization - GHE)}
-Ý tưởng cốt lõi của GHE là dàn trải phân phối mật độ xám của hình ảnh để đạt được lược đồ tần suất phân bố đều (uniform distribution), từ đó mở rộng dải động của ảnh.
-Về mặt toán học, gọi $r$ là cường độ điểm ảnh đầu vào đã chuẩn hóa ($r \in [0, 1]$). Hàm mật độ xác suất (PDF) của mức xám $r$ là $p_r(r)$. Phép biến đổi tích lũy (Cumulative Distribution Function - CDF) được định nghĩa là:
+\subsection{Lý thuyết Retinex và các phương pháp lọc tần số}
+Lý thuyết Retinex do Edwin H. Land đề xuất dựa trên giả định rằng hình ảnh cảm nhận được $S(x, y)$ là tích số của hai thành phần: ánh sáng môi trường chiếu vào vật thể (Illumination $I(x, y)$) và tính chất phản xạ tự thân của vật thể (Reflectance $R(x, y)$):
 \begin{equation}
-    s = T(r) = \int_{0}^{r} p_r(w) dw
+    S(x, y) = I(x, y) \times R(x, y) \quad \Longrightarrow \quad \log S(x, y) = \log I(x, y) + \log R(x, y)
 \end{equation}
-Trong không gian rời rạc, giá trị cường độ mới $s_k$ được tính bằng:
-\begin{equation}
-    s_k = T(r_k) = \sum_{j=0}^{k} p_r(r_j) = \sum_{j=0}^{k} \frac{n_j}{n}
-\end{equation}
-với $n$ là tổng số điểm ảnh và $n_j$ là số điểm ảnh có mức cường độ $r_j$. Mặc dù rất đơn giản và tính toán cực nhanh, GHE thường dẫn đến hiện tượng tăng sáng quá mức (over-enhancement) ở các vùng vốn đã đủ sáng, đồng thời làm mất đi các chi tiết tinh tế và tạo ra cảm giác ảnh bị giả tạo, cháy sáng.
-
-\subsubsection{Cân bằng lược đồ xám thích ứng giới hạn tương phản (Contrast Limited Adaptive Histogram Equalization - CLAHE)}
-Để khắc phục nhược điểm của GHE, CLAHE chia hình ảnh thành các ô nhỏ (tiles) không chồng chéo. Lược đồ xám của từng ô được tính toán độc lập. Nhằm tránh phóng đại nhiễu ở các vùng đồng nhất, CLAHE áp dụng một giới hạn cắt (clipping limit) đối với lược đồ tần suất trước khi tính CDF. Phần lược đồ bị cắt vượt ngưỡng sẽ được phân bổ đều lại cho tất cả các thùng lược đồ xám (histogram bins). Cuối cùng, để loại bỏ hiện tượng ranh giới nhân tạo giữa các ô, phép nội suy song tuyến (bilinear interpolation) được sử dụng để tính toán mịn giá trị điểm ảnh chuyển tiếp:
-\begin{equation}
-    I_{\text{new}}(x, y) = (1-a)(1-b)I_A + a(1-b)I_B + (1-a)bI_C + abI_D
-\end{equation}
-với $I_A, I_B, I_C, I_D$ là giá trị xám được cân bằng của bốn ô lân cận xung quanh điểm ảnh $(x, y)$, và $a, b$ là khoảng cách chuẩn hóa. CLAHE mang lại kết quả tự nhiên hơn nhiều so với GHE nhưng vẫn gặp khó khăn trong các cảnh có ánh sáng biến đổi quá phức tạp.
-
-\subsection{Lý thuyết Retinex và Các biến thể miền tần số (Frequency Domain Methods)}
-Lý thuyết Retinex do Edwin H. Land đề xuất dựa trên giả định rằng hình ảnh $S(x, y)$ cảm nhận được bởi mắt người hoặc camera là tích số của hai thành phần: ánh sáng môi trường chiếu vào vật thể (Illumination $I(x, y)$) và tính chất phản xạ tự thân của bề mặt vật thể (Reflectance $R(x, y)$):
-\begin{equation}
-    S(x, y) = I(x, y) \times R(x, y)
-\end{equation}
-Trong đó, thành phần phản xạ $R(x, y)$ mang thông tin cấu trúc chân thực của vật thể và không thay đổi theo điều kiện chiếu sáng. Do đó, mục tiêu của các thuật toán Retinex là loại bỏ thành phần ánh sáng $I(x, y)$ để giữ lại $R(x, y)$. Để đơn giản hóa tính toán tuyến tính, phương trình được chuyển sang miền logarit:
-\begin{equation}
-    \log S(x, y) = \log I(x, y) + \log R(x, y)
-\end{equation}
-
-\subsubsection{Lý thuyết Retinex đơn tỷ lệ (Single-Scale Retinex - SSR)}
-Trong SSR, bản đồ chiếu sáng $I(x, y)$ được giả định là thành phần tần số thấp (mịn) của bức ảnh, được ước lượng bằng cách lọc thông thấp ảnh gốc bằng một bộ lọc Gauss $G(x, y)$:
-\begin{equation}
-    I(x, y) = G(x, y) * S(x, y)
-\end{equation}
-\begin{equation}
-    G(x, y) = K \cdot \exp\left( -\frac{x^2 + y^2}{\sigma^2} \right)
-\end{equation}
-với $\sigma$ là hệ số tỷ lệ (scale) quyết định độ rộng của bộ lọc Gauss, và $K$ là hằng số chuẩn hóa sao cho $\iint G(x,y)dxdy = 1$. Giá trị ảnh phản xạ tăng cường thu được là:
-\begin{equation}
-    \log R(x, y) = \log S(x, y) - \log [G(x, y) * S(x, y)]
-\end{equation}
-SSR phụ thuộc nặng nề vào việc chọn $\sigma$. Một giá trị $\sigma$ nhỏ sẽ giữ chi tiết biên tốt nhưng gây méo màu nghiêm trọng, trong khi $\sigma$ lớn bảo toàn màu sắc tốt hơn nhưng làm mất độ tương phản biên.
-
-\subsubsection{Lý thuyết Retinex đa tỷ lệ (Multi-Scale Retinex - MSR) và MSRCR}
-MSR giải quyết bài toán của SSR bằng cách kết hợp tuyến tính nhiều đầu ra SSR với các tỷ lệ bộ lọc Gauss khác nhau ($\sigma_1, \sigma_2, ..., \sigma_N$):
-\begin{equation}
-    R_{\text{MSR}}(x, y) = \sum_{n=1}^{N} w_n \left( \log S(x, y) - \log [G_n(x, y) * S(x, y)] \right)
-\end{equation}
-với $w_n$ là các trọng số tương ứng ($\sum w_n = 1$). Tuy nhiên, MSR vẫn thường làm ảnh bị mất độ bão hòa màu sắc tự nhiên (nhợt nhạt). Thuật toán MSRCR (Multi-Scale Retinex with Color Restoration) giới thiệu thêm một hàm phục hồi màu sắc $C_c(x, y)$ cho kênh màu $c \in \{R, G, B\}$:
-\begin{equation}
-    R_{\text{MSRCR}, c}(x, y) = C_c(x, y) \cdot R_{\text{MSR}, c}(x, y)
-\end{equation}
-\begin{equation}
-    C_c(x, y) = \beta \cdot \log \left[ \alpha \frac{S_c(x, y)}{\sum_{j \in \{R,G,B\}} S_j(x, y)} \right]
-\end{equation}
-với $\alpha$ và $\beta$ là các tham số thực nghiệm. Mặc dù MSRCR mang lại độ tương phản tốt, nó yêu cầu tinh chỉnh tham số thủ công rất phức tạp và thường tạo ra hiện tượng quầng sáng (halo artifacts) tại các biên có độ tương phản quá cao.
-
-\subsubsection{Phương pháp ước lượng bản đồ chiếu sáng tối ưu hóa và LIME}
-Bên cạnh các phương pháp lọc tần số như SSR hay MSR, một nhóm phương pháp truyền thống khác dựa trên tối ưu hóa cấu trúc để ước lượng bản đồ chiếu sáng (illumination map estimation). Trong đó, thuật toán LIME (Low-light Image Enhancement via Illumination Map Estimation) do Guo và các cộng sự đề xuất là một trong những công trình tiêu biểu nhất. Thay vì sử dụng bộ lọc Gauss đơn giản, LIME ban đầu tìm kiếm giá trị phơi sáng tối đa trên ba kênh màu để làm bản đồ chiếu sáng thô, sau đó tinh chỉnh bản đồ này thông qua việc giải một bài toán tối ưu hóa có chứa số hạng phạt độ mịn không gian (spatial smoothness penalty) dựa trên gradient ảnh đầu vào. LIME mang lại hiệu năng phục hồi biên và độ sáng rất vượt trội so với các thuật toán Retinex truyền thống, nhưng vẫn dễ bị nhiễu hạt phóng đại ở các khu vực cực tối do thiếu cơ chế khử nhiễu liên hợp.
+Mục tiêu của các phương pháp Retinex là loại bỏ $I(x, y)$ để khôi phục $R(x, y)$ sắc nét và chân thực:
+\begin{itemize}
+    \item \textbf{Retinex đơn tỷ lệ (SSR) và đa tỷ lệ (MSR):} SSR ước lượng bản đồ chiếu sáng $I(x, y)$ bằng cách lọc thông thấp ảnh gốc qua bộ lọc Gauss $G(x, y)$ với một hệ số tỷ lệ $\sigma$. MSR cải tiến SSR bằng cách kết hợp tuyến tính nhiều bộ lọc Gauss với các tỷ lệ khác nhau ($\sigma_1, \sigma_2, ..., \sigma_N$). Để bù đắp việc mất độ bão hòa màu, MSRCR tích hợp thêm hàm phục hồi màu sắc $C_c(x, y)$ cho mỗi kênh màu $c \in \{R, G, B\}$.
+    \item \textbf{Phương pháp ước lượng bản đồ chiếu sáng tối ưu hóa (LIME):} LIME ước lượng bản đồ chiếu sáng thô ban đầu bằng cách tìm cường độ pixel cực đại trên ba kênh màu, sau đó giải bài toán tối ưu hóa có số hạng phạt độ mịn không gian dựa trên gradient ảnh để tinh chỉnh bản đồ chiếu sáng. LIME cho hiệu năng khôi phục biên rất sắc nét nhưng dễ làm phóng đại nhiễu hạt ở các vùng quá tối.
+\end{itemize}
 
 \subsection{Các phương pháp dựa trên Học sâu (Deep Learning Methods)}
-Sự trỗi dậy của học sâu (Deep Learning) đã mở ra một kỷ nguyên hoàn toàn mới cho bài toán tăng cường ảnh thiếu sáng. Chúng ta có thể phân chia các mô hình này thành ba nhóm chính dựa trên phương thức huấn luyện.
-
-\subsubsection{Học sâu có giám sát (Supervised Deep Learning)}
-Các mô hình đi đầu như LLNet (2017) sử dụng kiến trúc Autoencoder xếp chồng để khử nhiễu và tăng sáng. RetinexNet (2018) kết hợp lý thuyết Retinex với mạng CNN bằng cách chia mạng thành hai phần: Decom-Net để tách ảnh thành thành phần ánh sáng và phản xạ, và Enhance-Net để làm sáng bản đồ ánh sáng trước khi tái cấu trúc. Mô hình KinD (Kindling the Darkness - 2019) cải tiến sâu hơn bằng cách thiết kế các module riêng biệt cho khử nhiễu và phục hồi độ tương phản. 
-
-Mặc dù có chất lượng phục hồi cao trên tập kiểm thử, các mô hình giám sát chịu một hạn chế chí mạng: **sự phụ thuộc vào các cặp dữ liệu tối-sáng nhân tạo**. Việc chụp ảnh cặp thực tế (bằng cách thay đổi thời gian phơi sáng) đòi hỏi camera phải đứng yên tuyệt đối, không có vật thể chuyển động. Nếu dùng ảnh tổng hợp (synthetic data) bằng cách làm tối ảnh sáng bằng toán học, mô hình sẽ không học được phân phối nhiễu phức tạp của cảm biến thực tế, dẫn đến suy giảm hiệu năng nghiêm trọng khi ứng dụng vào ảnh đời thực.
-
-\subsubsection{Học sâu không giám sát dựa trên mạng GAN (Unsupervised GANs)}
-Để giải phóng mô hình khỏi sự phụ thuộc vào dữ liệu cặp, mạng sinh đối kháng GAN được đưa vào sử dụng. Nổi bật là EnlightenGAN (EnGAN - 2020), sử dụng kiến trúc Generator-Discriminator tự học ánh sáng từ hai tập dữ liệu không ghép cặp (unpaired data): một tập gồm nhiều ảnh tối ngẫu nhiên, một tập gồm nhiều ảnh sáng đẹp ngẫu nhiên. EnGAN áp dụng hàm mất mát đối kháng toàn cục và cục bộ cùng cơ chế chú ý tự động (self-attention). 
-
-Tuy nhiên, EnGAN và các biến thể GAN nói chung rất khó huấn luyện do hiện tượng đổ sụp mode (mode collapse). Chúng tiêu tốn tài nguyên tính toán cực kỳ lớn, cấu trúc mạng Generator rất cồng kềnh (hàng triệu tham số) nên không thể chạy thời gian thực trên các thiết bị cấu hình yếu. Đồng thời, GAN đôi khi tự sinh ra các chi tiết giả tạo (artifacts) không có trong ảnh gốc.
-
-\subsubsection{Học sâu không tham chiếu (Zero-Reference Deep Learning)}
-Để khắc phục hoàn toàn điểm yếu của cả hai nhóm trên, **Zero-DCE** \cite{zero-dce} ra đời. Mô hình không cần bất kỳ ảnh cặp nào, cũng không cần bộ phân biệt đối kháng (discriminator). Thay vào đó, nó định nghĩa một bài toán học tự giám sát (self-supervised) cực kỳ thông minh: mạng CNN chỉ ước lượng các tham số của một họ đường cong điều chỉnh ánh sáng phi tuyến, và toàn bộ quá trình hội tụ được dẫn dắt bởi một bộ bốn hàm mất mát không tham chiếu xây dựng trực tiếp từ các tiên nghiệm vật lý và thị giác. Điều này mang lại sự ổn định tuyệt đối khi huấn luyện, cấu trúc mạng vô cùng nhỏ nhẹ và khả năng tổng quát hóa xuất sắc.
+Sự phát triển của học sâu (Deep Learning) đã cách mạng hóa bài toán LLIE. Các phương pháp học sâu được chia thành ba nhánh chính:
+\begin{itemize}
+    \item \textbf{Học sâu có giám sát (Supervised DL):} Các kiến trúc tiêu biểu như LLNet, RetinexNet hay KinD sử dụng mạng nơ-ron để học hàm ánh xạ phi tuyến từ ảnh tối sang ảnh sáng. Tuy nhiên, các mô hình này phụ thuộc nặng nề vào các cặp dữ liệu tối-sáng nhân tạo (paired data), dẫn đến khả năng tổng quát hóa kém và dễ bị lệch phân phối nhiễu khi áp dụng vào ảnh thực tế.
+    \item \textbf{Học sâu không giám sát dựa trên mạng GAN (Unsupervised GANs):} Như EnlightenGAN sử dụng cấu trúc Generator-Discriminator để tự học ánh sáng từ hai tập dữ liệu không ghép cặp (unpaired data). Mặc dù giải quyết được vấn đề dữ liệu cặp, GAN rất khó huấn luyện do hiện tượng sụp mode (mode collapse), cấu trúc cồng kềnh khó chạy thời gian thực và đôi khi tự sinh các chi tiết giả (artifacts).
+    \item \textbf{Học sâu không tham chiếu (Zero-Reference DL):} Tiêu biểu là **Zero-DCE** \cite{zero-dce}. Mô hình này loại bỏ hoàn toàn sự phụ thuộc vào dữ liệu cặp hoặc bộ phân biệt đối kháng. Nó sử dụng một mạng tích chập siêu nhẹ (DCE-Net) để ước lượng các bản đồ tham số đường cong điều chỉnh ánh sáng phi tuyến, hội tụ ổn định thông qua bộ bốn hàm mất mát không tham chiếu xây dựng từ các tiên nghiệm vật lý, mang lại tốc độ xử lý vượt trội và khả năng tổng quát hóa xuất sắc.
+\end{itemize}
 
 \begin{table}[H]
 \centering
@@ -283,7 +200,7 @@ Tuy nhiên, EnGAN và các biến thể GAN nói chung rất khó huấn luyện
 \toprule
 \textbf{Nhóm phương pháp} & \textbf{Yêu cầu dữ liệu} & \textbf{Tài nguyên tính toán} & \textbf{Độ ổn định huấn luyện} & \textbf{Hiện tượng Artifacts} \\ \midrule
 \textbf{Spatial (HE/CLAHE)} & Không cần huấn luyện & Cực thấp & Không áp dụng & Rất cao (cháy sáng, nhiễu) \\
-\textbf{Retinex (MSRCR)} & Không cần huấn luyện & Thấp đến Trung bình & Không áp dụng & Trung bình (quầng sáng halo) \\
+\textbf{Retinex (MSRCR/LIME)} & Không cần huấn luyện & Thấp đến Trung bình & Không áp dụng & Trung bình (quầng sáng halo) \\
 \textbf{Supervised DL} & Cần ảnh cặp tối-sáng & Cao (khi huấn luyện) & Cao & Thấp (nhưng kém tổng quát) \\
 \textbf{Unsupervised GAN} & Ảnh không cặp tối/sáng & Cực cao (huấn luyện) & Thấp (dễ sụp mode) & Có thể xuất hiện chi tiết giả \\
 \textbf{Zero-DCE (Đề xuất)} & \textbf{Chỉ cần ảnh tối} & \textbf{Thấp đến Cực thấp} & \textbf{Tuyệt đối ổn định} & \textbf{Hầu như không có} \\ \bottomrule
@@ -551,12 +468,329 @@ Vì không có ảnh chuẩn (ground-truth) để so sánh điểm ảnh với �
     \item \textbf{Hàm nhất quán không gian (Spatial Consistency Loss - $L_{spa}$)}: Hàm này so sánh sự chênh lệch (gradient) giữa các vùng lân cận trong ảnh gốc và ảnh đầu ra. Nó đảm bảo giữ nguyên cấu trúc biên và ranh giới vật thể, tránh hiện tượng mờ nhòe chi tiết sau khi tăng sáng.
 \end{itemize}
 
-\subsection{Cập nhật trọng số bằng Lan truyền ngược (Backpropagation)}
-Tổng của 4 hàm mất mát trên tạo thành hàm mục tiêu tổng quát:
-\begin{equation}
-    L_{total} = w_{spa}L_{spa} + w_{exp}L_{exp} + w_{col}L_{col} + w_{tv}L_{tv}
-\end{equation}
 Mô hình sử dụng thuật toán tối ưu hóa Adam (Adam Optimizer) để tính toán đạo hàm của $L_{total}$ đối với các trọng số trong mạng DCE-Net. Dòng gradient truyền ngược (gradient flow) được truyền qua toàn bộ hệ thống để cập nhật các trọng số mạng. Qua nhiều vòng lặp huấn luyện (epochs), mạng tự động học được cách ước lượng các bản đồ tham số $\alpha$ tối ưu nhất, giúp phục hồi ánh sáng tối đa mà không gây nhiễu, lóa hay lệch màu.
+
+\subsection{Hiện thực hóa Quy trình Huấn luyện bằng Mã nguồn PyTorch}
+Để chuyển tải toàn bộ cơ sở lý thuyết toán học và kiến trúc hệ thống của Zero-DCE (được mô tả chi tiết ở Chương 3 và Chương 4) thành một hệ thống thực nghiệm hoạt động được, chúng tôi hiện thực hóa mô hình trên môi trường ngôn ngữ lập trình Python kết hợp với thư viện học sâu PyTorch. Dưới đây là phân tích chi tiết từng khối mã nguồn được trích xuất từ notebook thực nghiệm \texttt{Zero-DCE.ipynb} kèm theo các giải thích kỹ thuật chuyên sâu.
+
+\subsubsection{Cấu hình các siêu tham số huấn luyện (Config Class)}
+Trước khi bắt đầu quy trình huấn luyện, toàn bộ các tham số điều khiển và trọng số của các hàm mất mát được gom nhóm tập trung vào lớp \texttt{Config}. Thiết kế này giúp dễ dàng quản lý và tinh chỉnh hệ thống trong các bài thử nghiệm khác nhau.
+
+\begin{lstlisting}[language=Python, caption=Lớp cấu hình siêu tham số và trọng số hàm mất mát]
+class Config:
+    lr = 1e-4
+    weight_decay = 1e-4
+    grad_clip_norm = 0.1
+    num_epochs = 100
+    batch_size = 16
+    img_size = 256
+
+    # Luu duong dan train dir va model checkpoint path
+    train_dir = '/content/drive/MyDrive/Colab Notebooks/zerodce/lol_dataset/our485'
+    save_model_path = 'model_checkpoints/'
+
+    # Trong so cho cac ham loss
+    w_spa = 1.0
+    w_exp = 10.0
+    w_col = 5.0
+    w_tv = 200.0
+
+args = Config()
+\end{lstlisting}
+
+\noindent \textbf{Phân tích ý nghĩa các tham số:}
+\begin{itemize}
+    \item \texttt{lr = 1e-4} và \texttt{weight\_decay = 1e-4}: Sử dụng tốc độ học nhỏ kết hợp với kỹ thuật suy giảm trọng số giúp mô hình tránh hiện tượng quá khớp (overfitting) và hội tụ mịn màng trên tập dữ liệu nhỏ.
+    \item \texttt{grad\_clip\_norm = 0.1}: Kỹ thuật cắt xén gradient (gradient clipping) là cực kỳ quan trọng để đảm bảo tính ổn định của dòng gradient khi truyền qua 8 bước lặp phi tuyến của đường cong, ngăn chặn hiện tượng bùng nổ gradient (gradient explosion).
+    \item Các trọng số loss (\texttt{w\_spa}, \texttt{w\_exp}, \texttt{w\_col}, \texttt{w\_tv}): Phản ánh tầm quan trọng tương đối giữa các mục tiêu. Trong đó, \texttt{w\_tv = 200.0} được đặt cực lớn nhằm bù đắp cho giá trị gradient vốn rất nhỏ của các bản đồ tham số $\alpha$, ép các giá trị lân cận phải biến thiên cực kỳ mịn màng.
+\end{itemize}
+
+\subsubsection{Bộ nạp dữ liệu tùy chỉnh (LowLightDataset \& DataLoader)}
+Để tối ưu hóa bộ nhớ và tăng tốc độ huấn luyện, chúng tôi thiết kế lớp dữ liệu tùy chỉnh \texttt{LowLightDataset} kế thừa từ lớp \texttt{Dataset} của PyTorch.
+
+\begin{lstlisting}[language=Python, caption=Bộ nạp và tiền xử lý dữ liệu ảnh thiếu sáng]
+class LowLightDataset(Dataset):
+    def __init__(self, image_dir, transform=None):
+        self.image_dir = image_dir
+        self.image_list = []
+        # Tim kiem de quy tat ca cac file anh
+        for ext in ('*.jpg', '*.png', '*.jpeg', '*.JPG', '*.PNG'):
+            self.image_list.extend(glob.glob(os.path.join(image_dir, "**/" + ext), recursive=True))
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.image_list)
+
+    def __getitem__(self, idx):
+        img_path = self.image_list[idx]
+        image = Image.open(img_path).convert('RGB')
+        if self.transform:
+            image = self.transform(image)
+        return image
+
+# Resize va chuyen doi anh sang tensor
+transform = transforms.Compose([
+    transforms.Resize((args.img_size, args.img_size)),
+    transforms.ToTensor(),
+])
+
+train_dataset = LowLightDataset(args.train_dir, transform=transform)
+train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=2)
+\end{lstlisting}
+
+\noindent \textbf{Cơ chế hoạt động:}
+\begin{itemize}
+    \item Lớp \texttt{LowLightDataset} tìm kiếm đệ quy (\texttt{recursive=True}) để thu thập toàn bộ đường dẫn ảnh trong thư mục \texttt{our485}. Điều này giúp tránh bỏ sót ảnh trong trường hợp tập dữ liệu được chia nhỏ thành các thư mục con (như \texttt{low/}).
+    \item Phép biến đổi \texttt{transforms.ToTensor()} đóng vai trò kép: chuyển đổi ảnh PIL sang ma trận PyTorch Tensor có cấu trúc kênh màu là \texttt{CHW} (Channel, Height, Width) và tự động chuẩn hóa giá trị điểm ảnh từ đoạn $[0, 255]$ về đoạn $[0.0, 1.0]$.
+    \item \texttt{transforms.Resize} đưa tất cả các bức ảnh về cùng một kích cỡ cố định $256 \times 256$ pixel để có thể ghép nhóm thành các batch có kích thước 16 ảnh đưa vào GPU xử lý song song.
+\end{itemize}
+
+\subsubsection{Hiện thực hóa kiến trúc mạng DCE-Net trong PyTorch}
+Khối kiến trúc trung tâm của mô hình được biểu diễn qua lớp \texttt{DeepCurveEstimationNet}. Lớp này kế thừa lớp cơ sở \texttt{nn.Module} và định nghĩa các tầng tích chập cùng cơ chế lặp đường cong.
+
+\begin{lstlisting}[language=Python, caption=Hiện thực mạng DCE-Net và quy trình lặp LE-curve]
+class DeepCurveEstimationNet(nn.Module):
+    def __init__(self):
+        super(DeepCurveEstimationNet, self).__init__()
+        self.relu = nn.ReLU(inplace=True)
+
+        self.e_conv1 = nn.Conv2d(3, 32, 3, 1, 1, bias=True)
+        self.e_conv2 = nn.Conv2d(32, 32, 3, 1, 1, bias=True)
+        self.e_conv3 = nn.Conv2d(32, 32, 3, 1, 1, bias=True)
+        self.e_conv4 = nn.Conv2d(32, 32, 3, 1, 1, bias=True)
+        self.e_conv5 = nn.Conv2d(64, 32, 3, 1, 1, bias=True) # Concatenation layer
+        self.e_conv6 = nn.Conv2d(64, 32, 3, 1, 1, bias=True) # Concatenation layer
+        self.e_conv7 = nn.Conv2d(96, 24, 3, 1, 1, bias=True) # Output layer (8*3 channels)
+
+    def forward(self, x):
+        x1 = self.relu(self.e_conv1(x))
+        x2 = self.relu(self.e_conv2(x1))
+        x3 = self.relu(self.e_conv3(x2))
+        x4 = self.relu(self.e_conv4(x3))
+        x5 = self.relu(self.e_conv5(torch.cat([x3, x4], 1)))
+        x6 = self.relu(self.e_conv6(torch.cat([x2, x5], 1)))
+        x_r = torch.tanh(self.e_conv7(torch.cat([x1, x2, x6], 1)))
+
+        # Ap dung cong thuc duong cong LE-curve lap 8 lan
+        enhanced_image = x
+        for i in range(0, 24, 3):
+            a = x_r[:, i:i+3, :, :]
+            enhanced_image = enhanced_image + a * (torch.pow(enhanced_image, 2) - enhanced_image) * -1
+
+        return enhanced_image, x_r
+\end{lstlisting}
+
+\noindent \textbf{Phân tích chi tiết thiết kế mã nguồn:}
+\begin{itemize}
+    \item \textbf{Cấu hình Conv2d:} Tất cả các lớp Conv2d đều sử dụng kích thước kernel là $3 \times 3$, bước dịch (stride) bằng 1, và đệm rìa (padding) bằng 1. Điều này đảm bảo kích thước không gian (chiều cao và chiều rộng) của ảnh không bao giờ bị giảm đi khi qua mạng, bảo toàn độ phân giải ban đầu.
+    \item \textbf{Cơ chế Skip Connections:} Thông qua hàm \texttt{torch.cat(..., 1)}, các đặc trưng không gian ở lớp nông được ghép kênh (channel concatenation) trực tiếp với đặc trưng lớp sâu:
+    \begin{itemize}
+        \item Lớp nông \texttt{x3} và lớp sâu \texttt{x4} ghép lại thành $32 + 32 = 64$ kênh đưa vào lớp \texttt{e\_conv5}.
+        \item Lớp nông \texttt{x2} và lớp sâu \texttt{x5} ghép lại thành $32 + 32 = 64$ kênh đưa vào lớp \texttt{e\_conv6}.
+        \item Lớp nông \texttt{x1, x2} và lớp sâu \texttt{x6} ghép lại thành $32 + 32 + 32 = 96$ kênh đưa vào lớp \texttt{e\_conv7}.
+    \end{itemize}
+    Cơ chế này tương tự cấu trúc đối xứng của U-Net, giúp bảo tồn các chi tiết kết cấu vi mô (fine textures) từ những lớp đầu tiên không bị suy hao hoặc biến dạng qua các lớp tích chập sâu.
+    \item \textbf{Hàm kích hoạt Tanh:} Lớp đầu ra \texttt{e\_conv7} cho ra 24 kênh ($8 \text{ vòng lặp} \times 3 \text{ kênh màu}$) và được kích hoạt bởi hàm \texttt{torch.tanh}. Hàm này giới hạn dải đầu ra trong khoảng $[-1.0, 1.0]$. Đây chính là điều kiện toán học cần và đủ để đảm bảo tính đơn điệu tăng và tính bị chặn của họ đường cong LE-curve đã được chứng minh ở Chương 3.
+    \item \textbf{Hiện thực hóa phép lặp LE-curve:} Ở vòng lặp cuối của phương thức \texttt{forward}:
+    \begin{equation*}
+        \texttt{enhanced\_image} = \texttt{enhanced\_image} + a \times (\texttt{enhanced\_image}^2 - \texttt{enhanced\_image}) \times (-1)
+    \end{equation*}
+    Biểu thức $(\texttt{enhanced\_image}^2 - \texttt{enhanced\_image}) \times (-1)$ chính là $\texttt{enhanced\_image} \times (1 - \texttt{enhanced\_image})$. Do đó, dòng lệnh này thực hiện chính xác công thức toán học:
+    \begin{equation}
+        I_k(x) = I_{k-1}(x) + \alpha_k I_{k-1}(x)(1 - I_{k-1}(x))
+    \end{equation}
+    với $k$ tăng từ 1 đến 8 (tương ứng với các bước cắt slice 3 kênh từ tensor \texttt{x\_r} kích thước 24 kênh màu).
+\end{itemize}
+
+\subsubsection{Hiện thực hóa 4 Hàm Mất Mát Không Tham Chiếu}
+Để hướng dẫn mạng DCE-Net tự học cách ước lượng tham số $\alpha$ mà không cần ảnh tham chiếu, bộ bốn hàm mất mát được hiện thực hóa trực tiếp dưới dạng các module \texttt{nn.Module} của PyTorch.
+
+\begin{lstlisting}[language=Python, caption=Hiện thực hàm mất mát nhất quán không gian L\_spa]
+class L_spa(nn.Module):
+    def __init__(self):
+        super(L_spa, self).__init__()
+        kernel_left = torch.FloatTensor([[0,0,0],[-1,1,0],[0,0,0]]).unsqueeze(0).unsqueeze(0)
+        kernel_right = torch.FloatTensor([[0,0,0],[0,1,-1],[0,0,0]]).unsqueeze(0).unsqueeze(0)
+        kernel_up = torch.FloatTensor([[0,-1,0],[0,1,0],[0,0,0]]).unsqueeze(0).unsqueeze(0)
+        kernel_down = torch.FloatTensor([[0,0,0],[0,1,0],[0,-1,0]]).unsqueeze(0).unsqueeze(0)
+        
+        # Dong bang cac kernel de khong cap nhat gradient
+        self.weight_left = nn.Parameter(data=kernel_left, requires_grad=False)
+        self.weight_right = nn.Parameter(data=kernel_right, requires_grad=False)
+        self.weight_up = nn.Parameter(data=kernel_up, requires_grad=False)
+        self.weight_down = nn.Parameter(data=kernel_down, requires_grad=False)
+        self.pool = nn.AvgPool2d(4)
+
+    def forward(self, org, enhance):
+        org_mean = torch.mean(org, 1, keepdim=True)
+        enhance_mean = torch.mean(enhance, 1, keepdim=True)
+        org_pool = self.pool(org_mean)
+        enhance_pool = self.pool(enhance_mean)
+        
+        # Tinh gradient bang cach conv2d voi cac kernel
+        d_org_l = F.conv2d(org_pool, self.weight_left, padding=1)
+        d_org_r = F.conv2d(org_pool, self.weight_right, padding=1)
+        d_org_u = F.conv2d(org_pool, self.weight_up, padding=1)
+        d_org_d = F.conv2d(org_pool, self.weight_down, padding=1)
+        d_enh_l = F.conv2d(enhance_pool, self.weight_left, padding=1)
+        d_enh_r = F.conv2d(enhance_pool, self.weight_right, padding=1)
+        d_enh_u = F.conv2d(enhance_pool, self.weight_up, padding=1)
+        d_enh_d = F.conv2d(enhance_pool, self.weight_down, padding=1)
+        
+        loss = torch.pow(d_org_l-d_enh_l,2) + torch.pow(d_org_r-d_enh_r,2) + \
+               torch.pow(d_org_u-d_enh_u,2) + torch.pow(d_org_d-d_enh_d,2)
+        return torch.mean(loss)
+\end{lstlisting}
+
+\noindent \textbf{Cơ chế hoạt động của $L_{spa}$:} 
+\begin{itemize}
+    \item Các ma trận kernel được khởi tạo cứng và gán thuộc tính \texttt{requires\_grad=False} để đóng vai trò bộ trích xuất đặc trưng gradient cố định.
+    \item Lớp \texttt{AvgPool2d(4)} thực hiện chia ảnh thành các ô cục bộ $4 \times 4$ pixel và tính trung bình. Điều này giúp loại bỏ bớt nhiễu hạt trước khi tính toán độ chênh lệch gradient, giữ vững tính nhất quán cấu trúc ranh giới vĩ mô.
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption=Hiện thực hàm mất mát kiểm soát phơi sáng L\_exp và hằng số màu L\_col]
+class L_exp(nn.Module):
+    def __init__(self, patch_size=16, mean_val=0.6):
+        super(L_exp, self).__init__()
+        self.pool = nn.AvgPool2d(patch_size)
+        self.mean_val = mean_val
+
+    def forward(self, x):
+        x = torch.mean(x, 1, keepdim=True)
+        mean = self.pool(x)
+        return torch.mean(torch.pow(mean - self.mean_val, 2))
+
+class L_col(nn.Module):
+    def __init__(self):
+        super(L_col, self).__init__()
+
+    def forward(self, x):
+        # Tinh cuong do trung binh cua moi kenh mau
+        mean_rgb = torch.mean(x, [2, 3])
+        mr, mg, mb = mean_rgb[:, 0], mean_rgb[:, 1], mean_rgb[:, 2]
+        loss = torch.pow(mr - mg, 2) + torch.pow(mr - mb, 2) + torch.pow(mg - mb, 2)
+        return torch.mean(loss)
+\end{lstlisting}
+
+\noindent \textbf{Phân tích $L_{exp}$ và $L_{col}$:}
+\begin{itemize}
+    \item Lớp \texttt{L\_exp} sử dụng \texttt{AvgPool2d(16)} để trích xuất các ô cục bộ kích thước $16 \times 16$ pixel. Bằng việc tối thiểu hóa bình phương khoảng cách giữa độ sáng trung bình của từng ô và giá trị phơi sáng lý tưởng \texttt{mean\_val = 0.6}, mô hình ép các vùng tối tăng sáng mạnh và kiềm chế phơi sáng ở các vùng quá sáng.
+    \item Lớp \texttt{L\_col} đo lường sự mất cân bằng màu sắc. Nếu một kênh màu bất kỳ (ví dụ kênh Đỏ R) bị kéo sáng quá mức so với hai kênh còn lại (G và B), hàm loss này sẽ tăng vọt để phạt mô hình, buộc mạng phải duy trì mối quan hệ tự nhiên giữa ba kênh màu, tương ứng với giả thuyết Gray-World.
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption=Hiện thực hàm mất mát độ mượt ánh sáng L\_tv]
+class L_tv(nn.Module):
+    def __init__(self):
+        super(L_tv, self).__init__()
+
+    def forward(self, x):
+        batch_size, c, h, w = x.shape
+        count_h = (h - 1) * w
+        count_w = h * (w - 1)
+        # Tinh do lech giua cac pixel ke can de phat do lech dot ngot
+        h_tv = torch.pow((x[:, :, 1:, :] - x[:, :, :h - 1, :]), 2).sum()
+        w_tv = torch.pow((x[:, :, :, 1:] - x[:, :, :, :w - 1]), 2).sum()
+        return 2 * (h_tv / count_h + w_tv / count_w) / batch_size
+\end{lstlisting}
+
+\noindent \textbf{Cơ chế hoạt động của $L_{tv}$:}
+\begin{itemize}
+    \item Hàm \texttt{L\_tv} được áp dụng trực tiếp lên bản đồ tham số đường cong $\mathcal{A}$ (\texttt{x\_r} trong code) chứ không phải áp dụng lên ảnh tăng cường đầu ra.
+    \item Bằng cách lấy hiệu số giữa các hàng kế cận (\texttt{x[:, :, 1:, :] - x[:, :, :h - 1, :]}) và các cột kế cận (\texttt{x[:, :, :, 1:] - x[:, :, :, :w - 1]}), hàm loss này phạt mọi sự thay đổi đột ngột hay đứt gãy của giá trị $\alpha$. Điều này đảm bảo rằng các đường cong biến đổi trơn tru và mượt mà trên toàn bộ bức ảnh, ngăn ngừa hiện tượng lốm đốm nhiễu hay chia khối ánh sáng.
+\end{itemize}
+
+\subsubsection{Vòng lặp Huấn luyện Hệ thống (Training Loop)}
+Quy trình huấn luyện khép kín kết hợp tất cả các thành phần trên được thực thi thông qua một vòng lặp tối ưu hóa PyTorch tiêu chuẩn.
+
+\begin{lstlisting}[language=Python, caption=Vòng lặp huấn luyện tối ưu hóa mạng DCE-Net]
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model = DeepCurveEstimationNet().to(device)
+optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
+
+# Khoi tao loss modules
+criterion_spa = L_spa().to(device)
+criterion_exp = L_exp().to(device)
+criterion_col = L_col().to(device)
+criterion_tv = L_tv().to(device)
+
+print("Bat dau huan luyen...")
+for epoch in range(args.num_epochs):
+    model.train()
+    epoch_loss = 0
+    progress_bar = tqdm(train_loader, desc=f"Epoch {epoch+1}/{args.num_epochs}")
+
+    for img_low in progress_bar:
+        img_low = img_low.to(device)
+
+        # Lan truyen xuoi (Forward Pass)
+        enhanced_img, A = model(img_low)
+
+        # Tinh toan bon thanh phan loss rieng biet
+        loss_spa = criterion_spa(img_low, enhanced_img)
+        loss_exp = criterion_exp(enhanced_img)
+        loss_col = criterion_col(enhanced_img)
+        loss_tv = criterion_tv(A)
+
+        total_loss = args.w_spa * loss_spa + args.w_exp * loss_exp + \
+                     args.w_col * loss_col + args.w_tv * loss_tv
+
+        # Lan truyen nguoc va cap nhat trong so
+        optimizer.zero_grad()
+        total_loss.backward()
+        torch.nn.utils.clip_grad_norm_(model.parameters(), args.grad_clip_norm)
+        optimizer.step()
+
+        epoch_loss += total_loss.item()
+        progress_bar.set_postfix(loss=total_loss.item())
+
+    # Luu checkpoint moi 10 epochs
+    if (epoch + 1) % 10 == 0:
+        torch.save(model.state_dict(), f"{args.save_model_path}epoch_{epoch+1}.pth")
+        print(f"--- Da luu checkpoint tai epoch {epoch+1} ---")
+\end{lstlisting}
+
+\noindent \textbf{Các điểm kỹ thuật mấu chốt trong luồng huấn luyện:}
+\begin{itemize}
+    \item \texttt{optimizer.zero\_grad()}: Xóa sạch gradient tích lũy của các tham số mạng từ bước huấn luyện trước đó, tránh tích tụ sai lệch gradient qua các batch.
+    \item \texttt{total\_loss.backward()}: Thực hiện lan truyền ngược bằng phương pháp tự động tính đạo hàm (Autograd) của PyTorch, tính toán độ dốc sai số từ tổng hàm loss ngược về từng trọng số trong 7 tầng tích chập của mạng DCE-Net.
+    \item \texttt{torch.nn.utils.clip\_grad\_norm\_(model.parameters(), 0.1)}: Giới hạn chuẩn của vector gradient không vượt quá 0.1. Đây là bước sống còn vì họ đường cong bậc cao qua 8 vòng lặp tạo ra một đa thức bậc 256, khiến bề mặt lỗi rất nhạy cảm với các bước nhảy gradient lớn. Việc cắt xén đảm bảo mô hình cập nhật bước đi nhỏ, hội tụ cực kỳ ổn định.
+    \item \texttt{optimizer.step()}: Sử dụng các quy tắc cập nhật của thuật toán Adam để điều chỉnh các tham số mạng dựa trên gradient vừa tính toán.
+\end{itemize}
+
+\subsubsection{Xuất mô hình sang định dạng ONNX phục vụ triển khai thực tế}
+Để phục vụ triển khai thực tế trên các thiết bị cấu hình yếu và tối ưu hóa phần cứng bằng TensorRT hay TFLite (như đã thảo luận ở Chương 6), chúng tôi thực hiện xuất mô hình PyTorch đã được huấn luyện sang định dạng ONNX tiêu chuẩn.
+
+\begin{lstlisting}[language=Python, caption=Xuất mô hình PyTorch sang định dạng ONNX]
+def export_to_onnx(model, save_path, img_size=256):
+    model.eval()
+    # Tao dummy input co cung kich thuoc voi dau vao model
+    dummy_input = torch.randn(1, 3, img_size, img_size).to(device)
+
+    # Thuc hien xuat model
+    torch.onnx.export(
+        model,
+        dummy_input,
+        save_path,
+        export_params=True,
+        opset_version=11,
+        do_constant_folding=True,
+        input_names=['input'],
+        output_names=['output', 'curves'],
+        dynamic_axes={'input': {0: 'batch_size'}, 'output': {0: 'batch_size'}}
+    )
+    print(f"Model da duoc xuat sang: {save_path}")
+
+onnx_path = os.path.join(args.save_model_path, "zerodce_model.onnx")
+export_to_onnx(model, onnx_path)
+\end{lstlisting}
+
+\noindent \textbf{Giải thích các tham số biên dịch ONNX:}
+\begin{itemize}
+    \item \texttt{model.eval()}: Chuyển mô hình sang trạng thái suy luận (inference mode), tắt hoàn toàn các cơ chế đặc thù khi huấn luyện như Dropout hay cập nhật Batch Normalization (nếu có).
+    \item \texttt{dummy\_input}: PyTorch xuất mô hình thông qua cơ chế tracing (theo dấu). Nó cho dữ liệu giả đi qua phương thức \texttt{forward} một lần để ghi lại toàn bộ chuỗi các toán tử toán học đã được thực hiện, tạo nên đồ thị tính toán (computation graph) tĩnh.
+    \item \texttt{do\_constant\_folding = True}: Tự động gộp và tính toán trước các biểu thức hằng số trong đồ thị lúc biên dịch để giảm số lượng toán tử thừa, tối ưu hóa tốc độ chạy thực tế.
+    \item \texttt{dynamic\_axes}: Chỉ định chiều thứ 0 (Batch dimension) của đầu vào và đầu ra là động. Điều này cực kỳ quan trọng, cho phép mô hình ONNX sau khi xuất có thể nhận đầu vào là các luồng video hoặc ảnh đơn lẻ với kích thước batch tùy ý mà không phải biên dịch lại từ đầu.
+\end{itemize}
 
 \clearpage
 
@@ -678,26 +912,78 @@ Quy trình tối ưu hóa tiêu chuẩn công nghiệp bao gồm các bước:
 
 \clearpage
 
-\section{Kết luận và Hướng phát triển Tương lai}
+\section{Đề xuất Cải tiến và Hướng phát triển trong Tương lai}
 
 \subsection{Tổng kết những đóng góp của báo cáo nghiên cứu}
-Báo cáo tiểu luận nghiên cứu chuyên sâu này đã phác họa một cách toàn diện và sâu sắc bức tranh công nghệ của thuật toán tăng cường ảnh thiếu sáng đột phá **Zero-DCE**. 
-Những đóng góp cốt lõi của nghiên cứu bao gồm:
+Báo cáo tiểu luận nghiên cứu chuyên sâu này đã phác họa một cách toàn diện và sâu sắc bức tranh công nghệ của thuật toán tăng cường ảnh thiếu sáng đột phá **Zero-DCE**. Những đóng góp cốt lõi của nghiên cứu bao gồm:
 \begin{enumerate}
     \item Hệ thống hóa lịch sử phát triển của các công nghệ LLIE, vạch rõ ưu nhược điểm vật lý cảm biến và toán học của từng nhóm giải pháp từ truyền thống đến học sâu hiện đại.
     \item Đưa ra chứng minh toán học chặt chẽ lần đầu tiên về tính đơn điệu tăng và tính bị chặn của họ đường cong LE-curve phi tuyến thích ứng - nền tảng lý thuyết bảo toàn cấu trúc tương phản tự nhiên của ảnh đầu ra.
     \item Phân tích chi tiết triết lý thiết kế và công thức toán học của bốn hàm mất mát không tham chiếu tự giám sát độc đáo.
-    \item Hệ thống hóa và phân tích chuyên sâu cấu trúc mạng tích chập cực nhẹ và cơ chế học tập không tham chiếu.
+    \item Hệ thống hóa và phân tích chuyên sâu cấu trúc mạng tích chập cực nhẹ và cơ chế học tập không tham chiếu bằng PyTorch.
     \item Tổng hợp kết quả định lượng chi tiết trên các tập dữ liệu chuẩn, thảo luận thẳng thắn về các trường hợp thất bại thực tế và giải pháp ứng dụng hạ nguồn.
 \end{enumerate}
 
-\subsection{Đề xuất các hướng nghiên cứu mở rộng trong tương lai}
-Để khắc phục những hạn chế còn tồn tại của mô hình, chúng tôi đề xuất ba hướng nghiên cứu mở rộng đầy hứa hẹn trong tương lai:
+\subsection{Đề xuất mô hình cải tiến thế hệ mới: Zero-DCE++}
+Để giải quyết bài toán tối ưu hóa tài nguyên phần cứng hơn nữa, nhóm tác giả gốc đã đề xuất một biến thể cải tiến vượt trội mang tên \textbf{Zero-DCE++}. Mô hình này tập trung vào việc thu nhỏ kích thước mạng và tăng tốc độ xử lý mà vẫn giữ nguyên chất lượng tăng sáng:
 \begin{itemize}
-    \item \textbf{Tích hợp module khử nhiễu liên hợp (Joint Denoising and Enhancement)}: Nghiên cứu xây dựng một kiến trúc mạng nơ-ron hai nhánh song song tự giám sát, một nhánh ước lượng đường cong tăng sáng LE-curve và một nhánh ước lượng bản đồ nhiễu cảm biến để thực hiện lọc nhiễu đồng thời trong quá trình kéo sáng, giải quyết triệt để vấn đề phóng đại nhiễu hạt.
-    \item \textbf{Cải tiến hàm mất mát hằng số màu thích ứng ngữ cảnh}: Thay thế giả thuyết Gray-World toàn cục bằng các thuật toán cân bằng màu sắc cục bộ thích ứng, giúp bảo toàn chính xác màu sắc nguyên bản của các cảnh vật đơn sắc tự nhiên.
-    \item \textbf{Tối ưu hóa kiến trúc tự động hóa (Neural Architecture Search - NAS)}: Áp dụng các thuật toán NAS để tự động tìm kiếm cấu trúc kết nối skip-connections tối ưu nhất cho DCE-Net nhằm đạt hiệu năng cao hơn nữa với số lượng tham số ít hơn.
+    \item \textbf{Tích hợp tích chập tách biệt theo chiều sâu (Depthwise Separable Convolutions):} Zero-DCE++ thay thế toàn bộ các lớp tích chập tiêu chuẩn bằng các lớp tích chập tách biệt theo chiều sâu (gồm tích chập tích hợp sâu $3 \times 3$ kết hợp với tích chập điểm $1 \times 1$). Việc này giúp giảm số lượng tham số huấn luyện một cách đáng kinh ngạc từ **79K xuống chỉ còn khoảng 10K** (giảm gần 8 lần) và tiết kiệm tối đa số lượng phép tính toán FLOPs.
+    \item \textbf{Tái sử dụng bản đồ tham số (Parameter Map Reuse):} Trong khi Zero-DCE phải dự đoán 24 bản đồ tham số độc lập ($8 \text{ vòng lặp} \times 3 \text{ kênh màu}$) cho 8 bước lặp kéo sáng, Zero-DCE++ chỉ dự đoán duy nhất một bộ 3 bản đồ tham số $\alpha$. Bộ tham số này sau đó được tái sử dụng tuần hoàn qua cả 8 vòng lặp. Điều này giúp loại bỏ hiện tượng quá khớp (overfitting), đơn giản hóa lớp đầu ra của mạng nơ-ron từ 24 kênh xuống còn 3 kênh, và tiết kiệm tài nguyên bộ nhớ GPU rất lớn.
+    \item \textbf{Tốc độ suy luận cực hạn:} Nhờ những cải tiến cấu trúc trên, Zero-DCE++ đạt tốc độ suy luận cực hạn lên tới **1000+ FPS** trên GPU phổ thông (gấp đôi tốc độ của Zero-DCE gốc vốn đã rất nhanh là 500 FPS), trở thành một bộ tiền xử lý lý tưởng cho các tác vụ thời gian thực trên các thiết bị nhúng di động hoặc camera thông minh.
 \end{itemize}
+
+\subsection{Đề xuất tối ưu hóa toán học cho các điểm ảnh đã đủ sáng}
+Trong quá trình huấn luyện và suy luận của Zero-DCE, mạng nơ-ron thực hiện phép lặp đường cong LE-curve phi tuyến 8 lần trên toàn bộ ma trận ảnh:
+\begin{equation}
+    I_k(x) = I_{k-1}(x) + \alpha_k I_{k-1}(x)(1 - I_{k-1}(x))
+\end{equation}
+Về mặt lý thuyết, đối với các điểm ảnh đã đủ sáng hoặc nằm ở vùng sáng (giá trị cường độ chuẩn hóa $I \to 1.0$), thành phần hiệu chỉnh $\alpha_k I_{k-1}(x)(1 - I_{k-1}(x))$ sẽ tự động triệt tiêu về $0$ do nhân tử $(1 - I) \to 0$. Tuy nhiên, về mặt tính toán thực tế trong PyTorch, CPU hoặc GPU vẫn bắt buộc phải thực hiện đầy đủ các phép nhân, lũy thừa và cộng ma trận trên các điểm ảnh này qua cả 8 vòng lặp. Việc này gây ra sự lãng phí tài nguyên tính toán không đáng có đối với các bức ảnh có tỷ lệ vùng sáng lớn hoặc khi xử lý các batch ảnh hỗn hợp.
+
+Để tối ưu hóa hiệu năng tính toán và bảo vệ các vùng sáng không bị cháy sáng (highlight blowout) do tích lũy sai số làm tròn phi tuyến, chúng tôi đề xuất giải pháp **Mặt nạ Thích ứng (Adaptive Masking)** kết hợp **Dừng sớm (Early Stopping)**:
+\begin{enumerate}
+    \item \textbf{Cơ chế Mặt nạ Thích ứng (Adaptive Masking):} Thiết lập một ngưỡng độ sáng giới hạn $\theta \in [0.9, 0.95]$. Tại mỗi vòng lặp $k$, chúng ta tạo một ma trận mặt nạ nhị phân $M$:
+    \begin{equation}
+        M(x) = \begin{cases} 
+            1.0 & \text{nếu } I_{k-1}(x) < \theta \\ 
+            0.0 & \text{nếu } I_{k-1}(x) \geq \theta 
+        \end{cases}
+    \end{equation}
+    Phép cập nhật LE-curve lúc này sẽ được lọc qua mặt nạ:
+    \begin{equation}
+        I_k(x) = I_{k-1}(x) + M(x) \cdot \alpha_k I_{k-1}(x)(1 - I_{k-1}(x))
+    \end{equation}
+    Điều này đảm bảo các điểm ảnh đã đạt ngưỡng sáng mong muốn sẽ được giữ nguyên hoàn toàn giá trị, tránh mọi phép toán hiệu chỉnh dư thừa và bảo vệ tuyệt đối độ sắc nét của vùng highlight.
+    \item \textbf{Cơ chế Dừng sớm (Early Stopping):} Nếu tại một bước lặp $k$ bất kỳ, toàn bộ ma trận mặt nạ $M$ đều bằng 0 (tức là tất cả các điểm ảnh trong batch đều đã đạt ngưỡng sáng $\theta$), hệ thống sẽ lập tức thoát khỏi vòng lặp tính toán (\texttt{break}). Cơ chế này giúp tiết kiệm đáng kể thời gian xử lý khi thực hiện suy luận trên các bức ảnh ban ngày hoặc ảnh chụp ban đêm có độ phơi sáng khá tốt.
+\end{enumerate}
+
+\noindent Dưới đây là đoạn mã nguồn PyTorch hiện thực hóa phương thức \texttt{forward} tối ưu hóa theo đề xuất trên trong mạng \texttt{DeepCurveEstimationNet}:
+
+\begin{lstlisting}[language=Python, caption=Mã nguồn forward tối ưu hóa bằng Mặt nạ Thích ứng và Dừng sớm]
+    def forward(self, x, threshold=0.9):
+        x1 = self.relu(self.e_conv1(x))
+        x2 = self.relu(self.e_conv2(x1))
+        x3 = self.relu(self.e_conv3(x2))
+        x4 = self.relu(self.e_conv4(x3))
+        x5 = self.relu(self.e_conv5(torch.cat([x3, x4], 1)))
+        x6 = self.relu(self.e_conv6(torch.cat([x2, x5], 1)))
+        x_r = torch.tanh(self.e_conv7(torch.cat([x1, x2, x6], 1)))
+
+        enhanced_image = x
+        for i in range(0, 24, 3):
+            # Tinh mask cho cac pixel chua dat nguong phoi sang
+            mask = (enhanced_image < threshold).float()
+            
+            # Neu tat ca pixel trong batch da dat nguong sang, dung lap som
+            if mask.sum() == 0:
+                break
+                
+            a = x_r[:, i:i+3, :, :]
+            # Chi cap nhat cho nhung pixel chua dat nguong phoi sang
+            enhanced_image = enhanced_image + mask * a * (torch.pow(enhanced_image, 2) - enhanced_image) * -1
+
+        return enhanced_image, x_r
+\end{lstlisting}
+
 
 \clearpage
 

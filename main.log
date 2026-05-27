@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.5)  22 MAY 2026 17:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.5)  27 MAY 2026 14:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -899,7 +899,7 @@ Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count336
-<uth_logo.png, id=205, 517.935pt x 98.3675pt>
+<uth_logo.png, id=188, 517.935pt x 98.3675pt>
 File: uth_logo.png Graphic file (type png)
 <use uth_logo.png>
 Package pdftex.def Info: uth_logo.png  used on input line 78.
@@ -966,24 +966,24 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 
 ]
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
-47.
+50.
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [5
 
-{/usr/local/texlive/2026basic/texmf-dist/fonts/enc/dvips/base/8r.enc}]
-Overfull \hbox (15.79663pt too wide) in paragraph at lines 163--164
-[]\T5/ptm/m/n/13 Tr¡i ng÷ñc vîi sü ký di»u cõa m­t sinh håc, c¡c c£m bi¸n h¼nh 
-£nh b¡n d¨n (CMOS/CCD)
- []
-
-[6] [7] [8
-
-] [9] [10] [11] [12] [13
+{/usr/local/texlive/2026basic/texmf-dist/fonts/enc/dvips/base/8r.enc}] [6] [7
 
 ]
-Overfull \hbox (11.54404pt too wide) in paragraph at lines 363--364
+Overfull \hbox (14.0966pt too wide) in paragraph at lines 188--189
+[]\T5/ptm/b/n/13 Håc s¥u câ gi¡m s¡t (Su-per-vised DL): \T5/ptm/m/n/13 C¡c ki¸n
+ tróc ti¶u biºu nh÷ LL-Net, RetinexNet
+ []
+
+[8] [9
+
+]
+Overfull \hbox (11.54404pt too wide) in paragraph at lines 280--281
 []\T5/ptm/m/n/13 V¼ $\OML/cmm/m/it/12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/
 cmr/m/n/12 )$ \T5/ptm/m/n/13 li¶n töc v  ^^_ìn ^^_i»u t«ng tr¶n $\OT1/cmr/m/n/1
 2 [0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1]$\T5/ptm/m/n/13 , tªp gi¡ trà cõa nâ l
@@ -992,96 +992,142 @@ cmr/m/n/12 )$ \T5/ptm/m/n/13 li¶n töc v  ^^_ìn ^^_i»u t«ng tr¶n $\OT1/cmr/m/n/1
 ] =
  []
 
-[14] [15] [16]
-Overfull \hbox (9.13387pt too wide) in paragraph at lines 430--431
+[10] [11] [12]
+Overfull \hbox (9.13387pt too wide) in paragraph at lines 347--348
 \OT1/cmr/m/n/12 (51\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 51\OML/cmm/m/it/12 ; \OT1
 /cmr/m/n/12 51)$ \T5/ptm/m/n/13 ^^_¢ ^^_÷ñc t«ng c÷íng ^^_ë s¡ng l¶n th nh m u 
 x¡m s¡ng hìn nhi·u l  $\OT1/cmr/m/n/12 (127\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1
 27\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 127)$
  []
 
-[17] [18]
-LaTeX Font Info:    Calculating math sizes for size <15.59996> on input line 45
-7.
+[13] [14]
+LaTeX Font Info:    Calculating math sizes for size <15.59996> on input line 37
+4.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <15.59996> not available
-(Font)              size <14.4> substituted on input line 457.
+(Font)              size <14.4> substituted on input line 374.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <15.59996> not available
-(Font)              size <14.4> substituted on input line 457.
+(Font)              size <14.4> substituted on input line 374.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <15.59996> not available
-(Font)              size <14.4> substituted on input line 457.
+(Font)              size <14.4> substituted on input line 374.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 457.
+(hyperref)                removing `math shift' on input line 374.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 457.
+(hyperref)                removing `subscript' on input line 374.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 457.
+(hyperref)                removing `math shift' on input line 374.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 472.
+(hyperref)                removing `math shift' on input line 389.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 472.
+(hyperref)                removing `subscript' on input line 389.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 472.
+(hyperref)                removing `math shift' on input line 389.
 
-[19
+[15
 
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 488.
+(hyperref)                removing `math shift' on input line 405.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 488.
+(hyperref)                removing `subscript' on input line 405.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 488.
+(hyperref)                removing `math shift' on input line 405.
 
-[20]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 503.
-
+[16]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 503.
+(hyperref)                removing `math shift' on input line 420.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 503.
+(hyperref)                removing `subscript' on input line 420.
 
-[21] [22] [23
 
-] [24]
-Overfull \hbox (12.30824pt too wide) in paragraph at lines 563--563
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 420.
+
+[17] [18] [19
+
+]
+LaTeX Font Info:    Trying to load font information for T5+pcr on input line 47
+4.
+
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/vntex/t5pcr.fd
+File: t5ucr.fd 2005/08/24 Fontinst v1.929 font definitions for T5/pcr.
+)
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 479.
+
+[20] [21] [22] [23]
+Overfull \hbox (10.52043pt too wide) in paragraph at lines 593--594
+[]\T5/ptm/b/n/13 H m k½ch ho¤t Tanh: \T5/ptm/m/n/13 Lîp ^^_¦u ra \T5/pcr/m/n/13
+ e_conv7 \T5/ptm/m/n/13 cho ra 24 k¶nh ($\OT1/cmr/m/n/12 8[] \OMS/cmsy/m/n/12 ^
+^B \OT1/cmr/m/n/12 3[]$\T5/ptm/m/n/13 )
+ []
+
+
+Overfull \hbox (104.07115pt too wide) detected at line 597
+[] \OT1/cmr/m/n/12 = [] + \OML/cmm/m/it/12 a \OMS/cmsy/m/n/12 ^^B \OT1/cmr/m/n/
+12 ([][] \OMS/cmsy/m/n/12 ^^@ []\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^B \OT1/cmr
+/m/n/12 (\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1)
+ []
+
+
+Overfull \hbox (61.34996pt too wide) in paragraph at lines 597--599
+\T5/ptm/m/n/13 Biºu thùc $\OT1/cmr/m/n/12 ([][] \OMS/cmsy/m/n/12 ^^@ []\OT1/cmr
+/m/n/12 ) \OMS/cmsy/m/n/12 ^^B \OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/
+n/12 1)$ \T5/ptm/m/n/13 ch½nh l  $[] \OMS/cmsy/m/n/12 ^^B
+ []
+
+[24]
+Overfull \hbox (5.3079pt too wide) in paragraph at lines 647--648
+[]\T5/ptm/m/n/13 C¡c ma trªn ker-nel ^^_÷ñc khði t¤o cùng v  g¡n thuëc t½nh \T5
+/pcr/m/n/13 re-quires_grad=False
+ []
+
+[25] [26] [27]
+Overfull \hbox (0.25099pt too wide) in paragraph at lines 756--757
+[]\T5/pcr/m/n/13 torch.nn.utils.clip_grad_norm_(model.parameters(), 0.1)\T5/ptm
+/m/n/13 :
+ []
+
+[28] [29] [30]
+Overfull \hbox (12.30824pt too wide) in paragraph at lines 797--797
 []\T5/ptm/b/n/18.72003 K¸t qu£ Thüc nghi»m, B£ng sè li»u v  Th£o luªn chuy¶n
  []
 
-[25
+[31
 
-] [26] [27] [28] [29
+] [32] [33] [34] [35
 
-] [30] [31
+] [36] [37
 
-] [32
+] [38] [39] [40
 
 ] (./main.aux)
  ***********
@@ -1094,16 +1140,16 @@ LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.19997pt have occurred.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 739295439B7A33567FFAA223634591C0;19718.
+(rerunfilecheck)             Checksum: F511E821120B8868C98F22EAA66548F2;17454.
  ) 
 Here is how much of TeX's memory you used:
- 16981 strings out of 469006
- 270007 string characters out of 5454814
- 725720 words of memory out of 5000000
- 45305 multiletter control sequences out of 15000+600000
- 681563 words of font info for 99 fonts, out of 8000000 for 9000
+ 17838 strings out of 469006
+ 279676 string characters out of 5454814
+ 1195437 words of memory out of 5000000
+ 45918 multiletter control sequences out of 15000+600000
+ 689817 words of font info for 105 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 108i,13n,107p,1120b,620s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 108i,13n,107p,924b,2179s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmex1
 0.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mmi10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/
@@ -1113,14 +1159,16 @@ sfonts/cm/cmr12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmr9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/typ
-e1/vntex/urwvn/utmb8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/
-urw/times/utmr8a.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex
-/urwvn/utmr8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/ur
-wvn/utmri8v.pfb>
-Output written on main.pdf (33 pages, 267399 bytes).
+e1/vntex/urwvn/ucrb8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/
+vntex/urwvn/ucrr8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vnt
+ex/urwvn/utmb8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/urw/ti
+mes/utmr8a.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn
+/utmr8v.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/vntex/urwvn/ut
+mri8v.pfb>
+Output written on main.pdf (41 pages, 322481 bytes).
 PDF statistics:
- 560 PDF objects out of 1000 (max. 8388607)
- 494 compressed objects within 5 object streams
- 136 named destinations out of 1000 (max. 500000)
- 406 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 864 PDF objects out of 1000 (max. 8388607)
+ 783 compressed objects within 8 object streams
+ 372 named destinations out of 1000 (max. 500000)
+ 374 words of extra memory for PDF output out of 10000 (max. 10000000)
 
