@@ -13,35 +13,36 @@
 \contentsline {subsubsection}{\numberline {3.1.2}Chứng minh toán học chặt chẽ về tính đơn điệu và tính bị chặn của LE-curve}{10}{subsubsection.3.1.2}%
 \contentsline {subsubsection}{\numberline {3.1.3}Thiết kế đường cong lặp bậc cao thích ứng (Higher-Order Curves)}{11}{subsubsection.3.1.3}%
 \contentsline {subsubsection}{\numberline {3.1.4}Ví dụ minh họa chi tiết quá trình tăng cường điểm ảnh}{11}{subsubsection.3.1.4}%
-\contentsline {subsection}{\numberline {3.2}Kiến trúc mạng ước lượng tham số DCE-Net}{13}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Cấu trúc chi tiết các lớp mạng và Skip Connections}{13}{subsubsection.3.2.1}%
-\contentsline {section}{\numberline {4}Phân tích Chuyên sâu về Bộ bốn Hàm Mất mát Không Tham chiếu}{15}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Hàm mất mát nhất quán không gian (Spatial Consistency Loss - $L_{spa}$)}{15}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Hàm mất mát kiểm soát phơi sáng (Exposure Control Loss - $L_{exp}$)}{15}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Hàm mất mát hằng số màu sắc (Color Constancy Loss - $L_{col}$)}{16}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}Hàm mất mát độ mượt ánh sáng (Illumination Smoothness Loss - $L_{tv}$)}{17}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}Tỷ lệ kết hợp các hàm mất mát}{17}{subsection.4.5}%
-\contentsline {section}{\numberline {5}Quy trình Huấn luyện Mô hình}{19}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Chuẩn bị dữ liệu (Data Preparation)}{19}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Quá trình lan truyền xuôi (Forward Pass)}{19}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Đánh giá chất lượng bằng Bộ bốn Hàm mất mát không tham chiếu}{19}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Hiện thực hóa Quy trình Huấn luyện bằng Mã nguồn PyTorch}{20}{subsection.5.4}%
-\contentsline {subsubsection}{\numberline {5.4.1}Cấu hình các siêu tham số huấn luyện (Config Class)}{20}{subsubsection.5.4.1}%
-\contentsline {subsubsection}{\numberline {5.4.2}Bộ nạp dữ liệu tùy chỉnh (LowLightDataset \& DataLoader)}{21}{subsubsection.5.4.2}%
-\contentsline {subsubsection}{\numberline {5.4.3}Hiện thực hóa kiến trúc mạng DCE-Net trong PyTorch}{22}{subsubsection.5.4.3}%
-\contentsline {subsubsection}{\numberline {5.4.4}Hiện thực hóa 4 Hàm Mất Mát Không Tham Chiếu}{24}{subsubsection.5.4.4}%
-\contentsline {subsubsection}{\numberline {5.4.5}Vòng lặp Huấn luyện Hệ thống (Training Loop)}{27}{subsubsection.5.4.5}%
-\contentsline {subsubsection}{\numberline {5.4.6}Xuất mô hình sang định dạng ONNX phục vụ triển khai thực tế}{29}{subsubsection.5.4.6}%
-\contentsline {section}{\numberline {6}Kết quả Thực nghiệm, Bảng số liệu và Thảo luận chuyên sâu}{31}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Đánh giá Định lượng trên các tập dữ liệu tiêu chuẩn}{31}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Đánh giá Định tính và Trực quan hình ảnh}{32}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Tốc độ xử lý và Khả năng đáp ứng thời gian thực}{32}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4}Phân tích Đạo hàm và Khả năng hội tụ toán học của mô hình}{33}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5}Khảo sát các trường hợp thất bại khách quan (Failure Cases Analysis)}{33}{subsection.6.5}%
-\contentsline {section}{\numberline {7}Ứng dụng Thực tế và Các bài toán Hạ nguồn}{35}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Tác động tích cực đến các bài toán thị giác máy tính hạ nguồn (Downstream Tasks)}{35}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Triển khai tối ưu hóa thời gian thực trên Thiết bị biên (Edge Devices)}{35}{subsection.7.2}%
-\contentsline {section}{\numberline {8}Đề xuất Cải tiến và Hướng phát triển trong Tương lai}{37}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Tổng kết những đóng góp của báo cáo nghiên cứu}{37}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Đề xuất mô hình cải tiến thế hệ mới: Zero-DCE++}{37}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3}Đề xuất tối ưu hóa toán học cho các điểm ảnh đã đủ sáng}{38}{subsection.8.3}%
+\contentsline {subsubsection}{\numberline {3.1.5}Nghiên cứu thực nghiệm và Lý do chọn số vòng lặp tối ưu $N = 8$}{13}{subsubsection.3.1.5}%
+\contentsline {subsection}{\numberline {3.2}Kiến trúc mạng ước lượng tham số DCE-Net}{15}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Cấu trúc chi tiết các lớp mạng và Skip Connections}{15}{subsubsection.3.2.1}%
+\contentsline {section}{\numberline {4}Phân tích Chuyên sâu về Bộ bốn Hàm Mất mát Không Tham chiếu}{17}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Hàm mất mát nhất quán không gian (Spatial Consistency Loss - $L_{spa}$)}{17}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Hàm mất mát kiểm soát phơi sáng (Exposure Control Loss - $L_{exp}$)}{17}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Hàm mất mát hằng số màu sắc (Color Constancy Loss - $L_{col}$)}{18}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Hàm mất mát độ mượt ánh sáng (Illumination Smoothness Loss - $L_{tv}$)}{19}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Tỷ lệ kết hợp các hàm mất mát}{19}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Quy trình Huấn luyện Mô hình}{21}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Chuẩn bị dữ liệu (Data Preparation)}{21}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Quá trình lan truyền xuôi (Forward Pass)}{21}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Đánh giá chất lượng bằng Bộ bốn Hàm mất mát không tham chiếu}{21}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Hiện thực hóa Quy trình Huấn luyện bằng Mã nguồn PyTorch}{22}{subsection.5.4}%
+\contentsline {subsubsection}{\numberline {5.4.1}Cấu hình các siêu tham số huấn luyện (Config Class)}{22}{subsubsection.5.4.1}%
+\contentsline {subsubsection}{\numberline {5.4.2}Bộ nạp dữ liệu tùy chỉnh (LowLightDataset \& DataLoader)}{23}{subsubsection.5.4.2}%
+\contentsline {subsubsection}{\numberline {5.4.3}Hiện thực hóa kiến trúc mạng DCE-Net trong PyTorch}{24}{subsubsection.5.4.3}%
+\contentsline {subsubsection}{\numberline {5.4.4}Hiện thực hóa 4 Hàm Mất Mát Không Tham Chiếu}{26}{subsubsection.5.4.4}%
+\contentsline {subsubsection}{\numberline {5.4.5}Vòng lặp Huấn luyện Hệ thống (Training Loop)}{29}{subsubsection.5.4.5}%
+\contentsline {subsubsection}{\numberline {5.4.6}Xuất mô hình sang định dạng ONNX phục vụ triển khai thực tế}{31}{subsubsection.5.4.6}%
+\contentsline {section}{\numberline {6}Kết quả Thực nghiệm, Bảng số liệu và Thảo luận chuyên sâu}{33}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Đánh giá Định lượng trên các tập dữ liệu tiêu chuẩn}{33}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Đánh giá Định tính và Trực quan hình ảnh}{34}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Tốc độ xử lý và Khả năng đáp ứng thời gian thực}{34}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Phân tích Đạo hàm và Khả năng hội tụ toán học của mô hình}{35}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Khảo sát các trường hợp thất bại khách quan (Failure Cases Analysis)}{35}{subsection.6.5}%
+\contentsline {section}{\numberline {7}Ứng dụng Thực tế và Các bài toán Hạ nguồn}{37}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Tác động tích cực đến các bài toán thị giác máy tính hạ nguồn (Downstream Tasks)}{37}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Triển khai tối ưu hóa thời gian thực trên Thiết bị biên (Edge Devices)}{37}{subsection.7.2}%
+\contentsline {section}{\numberline {8}Đề xuất Cải tiến và Hướng phát triển trong Tương lai}{39}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Tổng kết những đóng góp của báo cáo nghiên cứu}{39}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Đề xuất mô hình cải tiến thế hệ mới: Zero-DCE++}{39}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Đề xuất tối ưu hóa toán học cho các điểm ảnh đã đủ sáng}{40}{subsection.8.3}%
